@@ -1,0 +1,44 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">List of Students</h3>
+				<div class="card-tools">
+				  <button type="button" class="btn btn-tool" ng-click="app.student(this)">
+					<i class="fas fa-plus"></i>
+				  </button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="studentsTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>ID #</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Course</th>
+						<th>Year & Section</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in students">
+					  <td>{{$index+1}}</td>
+					  <td>{{data.fullname}}</td>
+					  <td>{{data.stud_address}}</td>
+					  <td>Course</td>
+					  <td>Y/S</td>
+					  <td>
+						<button class="btn btn-primary btn-sm" ng-click="app.student(this,data)"><i class="fas fa-folder"></i> Update</button>
+						<button class="btn btn-danger btn-sm" ng-click="app.delete(this,data)"><i class="fas fa-trash"></i> Delete</button>
+					  </td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>

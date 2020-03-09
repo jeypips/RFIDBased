@@ -1,0 +1,103 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<form role="form" name="formHolder.student">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card card-secondary">
+						<div class="card-header">
+							<h3 class="card-title">Student's Information</h3>
+							<div class="card-tools">
+							  <button type="button" class="btn btn-tool" ng-click="app.edit(this)">
+								<i class="fa" ng-class="{'fa-edit': controls.ok.btn, 'fa-ban': !controls.ok.btn}"></i>
+							  </button>
+							</div>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6 col-sm-12">
+										  <!-- text input -->
+										  <div class="form-group">
+											<label>Student ID <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_studentID" ng-model="student.stud_studentID" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_studentID.$touched && formHolder.student.stud_studentID.$invalid}" required>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+										  <!-- text input -->
+										  <div class="form-group">
+											<label>Address <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_address" ng-model="student.stud_address" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_address.$touched && formHolder.student.stud_address.$invalid}" required>
+										  </div>
+										</div>
+										
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>First Name <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_fName" ng-model="student.stud_fName" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_address.$touched && formHolder.student.stud_address.$invalid}" required>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Parent Contact Number <i class="text-danger">*</i></label>
+											<input type="text" class="form-control">
+										  </div>
+										</div>
+										
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Middle Name <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_mName" ng-model="student.stud_mName" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_mName.$touched && formHolder.student.stud_mName.$invalid}" required>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Adviser Contact Number <i class="text-danger">*</i></label>
+											<input type="text" class="form-control">
+										  </div>
+										</div>
+										
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Last Name <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_lName" ng-model="profile.stud_lName" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_lName.$touched && formHolder.student.stud_lName.$invalid}" required>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Strand <i class="text-danger">*</i></label>
+											<input type="text" class="form-control">
+										  </div>
+										</div>
+										
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Name Extension <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="stud_nEx" ng-model="student.stud_nEx" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_nEx.$touched && formHolder.student.stud_nEx.$invalid}" required>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Year & Section <i class="text-danger">*</i></label>
+											<input type="text" class="form-control" name="lastname" ng-model="profile.lastname" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.profile.lastname.$touched && formHolder.profile.lastname.$invalid}" required>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-4">
+								</div>
+								
+							<div class="row">
+								<div class="col-sm-12">
+									<button type="submit" class="btn btn-default float-right" style="margin-left: 10px;" ng-click="app.list(this)" ng-disabled="controls.cancel.btn">{{controls.cancel.label}}</button>
+									<button type="submit" class="btn btn-info float-right" ng-click="app.save(this)" ng-disabled="controls.ok.btn">{{controls.ok.label}}</button>
+								</div>
+							</div>
+						</div><!-- /.card-body -->
+					</div>
+				</div>
+			</div>
+		</form>  <!-- /.form -->
+	</div>
+</section>
