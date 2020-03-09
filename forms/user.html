@@ -31,12 +31,17 @@
 									<input type="text" class="form-control" name="user_name" ng-model="user.user_name" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.user_name.$touched && formHolder.user.user_name.$invalid}" required>
 								  </div>
 								</div>
-								<div class="col-md-6 col-sm-12">
-								  <!-- text input -->
-								  <div class="form-group">
-									<label>Password <i class="text-danger">*</i></label>
-									<input type="text" class="form-control" name="user_password" ng-model="user.user_password" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.user_password.$touched && formHolder.user.user_password.$invalid}" required>
-								  </div>
+								<div class="col-sm-6">
+									<!-- text input -->
+									<div class="form-group">
+										<label>Password <i class="text-danger">*</i></label> <small class="float-right" style="color: {{color}};">{{label}}</small>
+										<div class="input-group input-group">
+										  <input type="{{app.inputType}}" class="form-control" name="user_password" ng-model="user.user_password" ng-change="analyze(user.user_password)" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.user_password.$touched && formHolder.user.user_password.$invalid}" required>
+											<span class="input-group-append">
+												<button type="button" class="btn btn-default btn-flat" ng-model="app.passwordCheckbox" ng-click="app.hideShowPassword(this)"><i class="fa {{controls.icon.label}}"></i></button>
+											</span>
+										</div>
+									</div>
 								</div>
 							</div>
 								

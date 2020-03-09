@@ -21,6 +21,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			scope.courses = []; // list
 			
+			
+			
 		};
 		
 		function mode(scope,row) {

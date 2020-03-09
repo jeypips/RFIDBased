@@ -40,7 +40,7 @@
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Parent Contact Number <i class="text-danger">*</i></label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control"name="parent_contact_no" ng-model="student.parent_contact_no" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.parent_contact_no.$touched && formHolder.student.parent_contact_no.$invalid}" required>
 										  </div>
 										</div>
 										
@@ -53,33 +53,33 @@
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Adviser Contact Number <i class="text-danger">*</i></label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" name="adviser_contact_no" ng-model="student.adviser_contact_no" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.adviser_contact_no.$touched && formHolder.student.adviser_contact_no.$invalid}" required>
 										  </div>
 										</div>
 										
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Last Name <i class="text-danger">*</i></label>
-											<input type="text" class="form-control" name="stud_lName" ng-model="profile.stud_lName" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_lName.$touched && formHolder.student.stud_lName.$invalid}" required>
+											<input type="text" class="form-control" name="stud_lName" ng-model="student.stud_lName" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_lName.$touched && formHolder.student.stud_lName.$invalid}" required>
 										  </div>
 										</div>
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Strand <i class="text-danger">*</i></label>
-											<input type="text" class="form-control">
+											<select type="text" class="form-control" ng-disabled="controls.ok.btn" name="f_cour_id" ng-model="student.f_cour_id" ng-options="course.cour_description for course in courses track by course.cour_id" ng-class="{'is-invalid': formHolder.student.f_cour_id.$touched && formHolder.student.f_cour_id.$invalid}" required></select>
 										  </div>
 										</div>
 										
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
-											<label>Name Extension <i class="text-danger">*</i></label>
-											<input type="text" class="form-control" name="stud_nEx" ng-model="student.stud_nEx" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_nEx.$touched && formHolder.student.stud_nEx.$invalid}" required>
+											<label>Name Extension <small>(Jr., 2nd, 3rd)</small></label>
+											<input type="text" class="form-control" name="stud_nEx" ng-model="student.stud_nEx" ng-disabled="controls.ok.btn">
 										  </div>
 										</div>
 										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Year & Section <i class="text-danger">*</i></label>
-											<input type="text" class="form-control" name="lastname" ng-model="profile.lastname" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.profile.lastname.$touched && formHolder.profile.lastname.$invalid}" required>
+											<input type="text" class="form-control">
 										  </div>
 										</div>
 									</div>

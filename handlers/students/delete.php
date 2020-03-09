@@ -8,8 +8,8 @@ require_once '../../db.php';
 
 session_start();
 
-$con = new pdo_db("profiles");
+$con = new pdo_db("students");
 
-$delete = $con->deleteData(array("id"=>implode(",",$_POST['id'])));	
+$delete = $con->deleteData(array("stud_id"=>implode(",",$_POST['stud_id'])));	
 
 ?>

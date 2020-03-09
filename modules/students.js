@@ -16,9 +16,26 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			};
 
 			scope.student = {};
-			scope.student.id = 0;
+			scope.student.stud_id = 0;
 			
 			scope.students = []; // list
+			
+		};
+		
+		function courses(scope) {
+			
+			$http({
+			  method: 'POST',
+			  url: 'api/suggestions/courses.php'
+			}).then(function mySuccess(response) {
+				
+				scope.courses = angular.copy(response.data);
+				
+			}, function myError(response) {
+				
+				// error
+				
+			});				
 			
 		};
 		
@@ -85,7 +102,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 		self.student = function(scope,row) {
 			
 			scope.student = {};
-			scope.student.id = 0;
+			scope.student.stud_id = 0;
 			
 			mode(scope,row);
 
@@ -99,7 +116,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				$http({
 				  method: 'POST',
 				  url: 'handlers/students/view.php',
-				  data: {id: row.id}
+				  data: {stud_id: row.stud_id}
 				}).then(function mySucces(response) {
 					
 					angular.copy(response.data, scope.student);
@@ -113,6 +130,40 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				});
 					
 			};
+			
+			// suggestions
+			courses(scope);
+			
+		};
+		
+		self.change = function(scope,row) {
+		
+			var title = "Edit"
+			
+			if (scope.$id > 2) scope = scope.$parent;				
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/students/view.php',
+			  data: {stud_id: row.stud_id}
+			}).then(function mySucces(response) {
+				
+				angular.copy(response.data, scope.student);
+
+			}, function myError(response) {
+				 
+			  // error
+				
+			});
+				
+			
+			var onOk = function() {
+				
+				self.save(scope);
+			
+			};
+			
+			bootstrapModal.box(scope,title,'dialogs/student_change_id.html',onOk);
 			
 		};
 		
@@ -129,8 +180,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			  data: scope.student
 			}).then(function mySuccess(response) {
 
-				if(scope.student.id==0){
-					scope.student.id = response.data;
+				if(scope.student.stud_id==0){
+					scope.student.stud_id = response.data;
 					growl.show('alert alert-success no-border mb-2',{from: 'top', amount: 55},'Successfully added.');
 				} else{
 					growl.show('alert alert-success no-border mb-2',{from: 'top', amount: 55},'Successfully updated.');
@@ -170,7 +221,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				$http({
 				  method: 'POST',
 				  url: 'handlers/students/delete.php',
-				  data: {id: [row.id]}
+				  data: {stud_id: [row.stud_id]}
 				}).then(function mySucces(response) {
 
 					self.list(scope);

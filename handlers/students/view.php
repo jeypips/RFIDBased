@@ -8,29 +8,12 @@ session_start();
 
 $con = new pdo_db();
 
-$profile = $con->getData("SELECT * FROM profiles WHERE id = $_POST[id]");
+$student = $con->getData("SELECT * FROM students WHERE stud_id = $_POST[stud_id]");
 
-$profile[0]['pwd'] = ($profile[0]['pwd'])?1:0;
-
-if($profile[0]['status']=="Student") {
-	
-	$profile[0]['status'] = 1;
-
-} elseif ($profile[0]['status']=="Employed"){
-	
-	$profile[0]['status'] = 2;
-	
-} elseif ($profile[0]['status']=="Unemployed"){
-	
-	$profile[0]['status'] = 3;
-	
-}	else {
-	
-	$profile[0]['status'] = 4;
-	
-}
+$course = $con->getData("SELECT * FROM course WHERE cour_id = ".$student[0]['f_cour_id']);
+$student[0]['f_cour_id'] = $course[0];
 
 header("Content-Type: application/json");
-echo json_encode($profile[0]);
+echo json_encode($student[0]);
 
 ?>

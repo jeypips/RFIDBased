@@ -1,0 +1,15 @@
+<form role="form" name="formHolder.student">
+	<div class="row">
+		<div class="col-md-12">
+		  <!-- text input -->
+		  <div class="alert alert-warning alert-dismissible">
+			<i class="icon fas fa-exclamation-triangle"></i>
+			Are you sure you want to change the ID of <b>{{student.stud_fName}} {{student.stud_lName}}</b>?
+		  </div>
+		  <div class="form-group">
+			<label>ID Number</label>
+			<input type="text" class="form-control" name="stud_studentID" ng-model="student.stud_studentID">
+		  </div>
+		</div>
+	</div>
+</form>  <!-- /.form -->

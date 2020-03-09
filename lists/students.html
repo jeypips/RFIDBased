@@ -17,19 +17,20 @@
 						<th>ID #</th>
 						<th>Name</th>
 						<th>Address</th>
-						<th>Course</th>
+						<th>Courses</th>
 						<th>Year & Section</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="data in students">
-					  <td>{{$index+1}}</td>
+					  <td>{{data.stud_studentID}}</td>
 					  <td>{{data.fullname}}</td>
 					  <td>{{data.stud_address}}</td>
-					  <td>Course</td>
+					  <td>{{data.f_cour_id.cour_description}}</td>
 					  <td>Y/S</td>
 					  <td>
+						<button class="btn btn-success btn-sm" ng-click="app.change(this,data)"><i class="fas fa-id-card"></i> Change ID</button>
 						<button class="btn btn-primary btn-sm" ng-click="app.student(this,data)"><i class="fas fa-folder"></i> Update</button>
 						<button class="btn btn-danger btn-sm" ng-click="app.delete(this,data)"><i class="fas fa-trash"></i> Delete</button>
 					  </td>
