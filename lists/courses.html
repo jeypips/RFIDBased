@@ -1,0 +1,38 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">List of Courses</h3>
+				<div class="card-tools">
+				  <button type="button" class="btn btn-tool" ng-click="app.course(this)">
+					<i class="fas fa-plus"></i>
+				  </button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="coursesTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Description</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in courses">
+					  <td>{{$index+1}}</td>
+					  <td>{{data.cour_description}}</td>
+					  <td>
+						<button class="btn btn-primary btn-sm" ng-click="app.course(this,data)"><i class="fas fa-folder"></i> Update</button>
+						<button class="btn btn-danger btn-sm" ng-click="app.delete(this,data)"><i class="fas fa-trash"></i> Delete</button>
+					  </td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>

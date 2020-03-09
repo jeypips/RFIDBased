@@ -11,16 +11,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>Sinapangan National High School Monitoring System using RFID</title>
-  <link rel="icon" type="image/ico" href="dist/img/logo.png">	
+  <link rel="icon" type="image/ico" href="dist/img/logo.png">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition layout-top-nav" ng-app="dashboard" ng-controller="dashboardCtrl" account-profile>
+<body class="hold-transition layout-top-nav" ng-app="ys" ng-controller="ysCtrl" account-profile>
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -38,15 +40,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="index.html" class="nav-link" style="color: green;">Dashboard</a>
+            <a href="index.html" class="nav-link">Dashboard</a>
           </li>
           <li class="nav-item">
             <a href="students.html" class="nav-link">Students</a>
           </li>
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Maintenance</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" style="color: green;">Maintenance</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="users.html" class="dropdown-item">Users </a></li>
+              <li><a href="users.html" class="dropdown-item" style="color: green;">Users </a></li>
               <li><a href="courses.html" class="dropdown-item">Courses</a></li>
               <li><a href="ys.html" class="dropdown-item">Year & Section</a></li>
             </ul>
@@ -70,22 +72,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h4 class="m-0 text-dark"> Sinapangan National High School Monitoring System using RFID</h4>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
       <div class="container">
-        
+        <div id="content"></div> <!-- display -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -112,6 +102,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">	
 <script src="angular/modules/bootbox/bootbox.min.js?ver=1.0.0.0"></script>
@@ -132,8 +125,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
 <script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
 <script src="angular/modules/post/window-open-post.js"></script>
-<script src="modules/dashboard.js"></script>
-<script src="controllers/dashboard.js"></script>
+<script src="modules/ys.js"></script>
+<script src="controllers/ys.js"></script>
 
 </body>
 </html>
