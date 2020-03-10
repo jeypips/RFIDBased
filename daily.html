@@ -193,6 +193,7 @@
 			<div class="card card-secondary">
 				<div class="card-header">
 					<h3 class="card-title">Daily Attendance</h3>
+					<button class="btn btn-success btn-sm float-right" ng-click="app.print(this)"><i class="fa fa-print"></i> Print Report</button>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
@@ -207,13 +208,14 @@
 					<tbody>
 						<tr ng-repeat="c in logs.courses">
 						  <td ng-repeat="h in c">{{h.d}}</td>
-						  <td></td>
+						  <td>{{ logs.subtotal[$index].total}}</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 						  <td></td>
-						  <td ng-repeat="h in logs.footer">{{h.t}}</td>
+						  <td ng-repeat="h in logs.total">{{h.countPerHour}}</td>
+						  <td style="background-color: #28a745; color: white;">TOTAL:  {{logs.overall}}</td>
 						</tr>
 					</tfoot>
 				  </table>
