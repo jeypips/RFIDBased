@@ -16,9 +16,9 @@ $avatar = "angular/modules/account/avatar.png";
 
 $session_user_id = $_SESSION['user_id'];
 
-$photo = '../../../pictures/'.$session_user_id.'.jpg';
+$photo = "angular/modules/account/avatar.png";
 
-if (file_exists($photo))
+/* if (file_exists($photo))
 {
 	$photo = "pictures/$session_user_id.jpg";
 	
@@ -26,7 +26,7 @@ if (file_exists($photo))
 	
 	$photo = "angular/modules/account/avatar.png";
 	
-}
+} */
 
 /* 
 $con->table = "groups";
