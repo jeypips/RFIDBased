@@ -25,7 +25,7 @@
 	visibility: hidden;
 }
 </style>
-<body class="hold-transition sidebar-mini layout-fixed" ng-app="ys" ng-controller="ysCtrl" account-profile>
+<body class="hold-transition sidebar-mini layout-fixed" ng-app="setting" ng-controller="settingCtrl" account-profile>
 <div class="wrapper">
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -121,8 +121,8 @@
 				  </p>
 				</a>
 			</li>
-			<li class="nav-item has-treeview menu-open">
-				<a href="#" class="nav-link active">
+			<li class="nav-item has-treeview">
+				<a href="#" class="nav-link">
 				  <i class="nav-icon fas fa-cogs"></i>
 				  <p>
 					Maintenance
@@ -143,7 +143,7 @@
 					</a>
 				  </li>
 				  <li class="nav-item">
-					<a href="ys.html" class="nav-link active">
+					<a href="ys.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Year & Section</p>
 					</a>
@@ -167,10 +167,76 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-   
-	  <div id="content"></div> <!-- display -->
-	  
-    </section>
+	 <section class="content-header">
+		<div class="container-fluid">
+			<form role="form" name="formHolder.user">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-secondary">
+							<div class="card-header">
+								<h3 class="card-title">User's Information</h3>
+								<div class="card-tools">
+								  <button type="button" class="btn btn-tool" ng-click="app.edit(this)">
+									<i class="fa" ng-class="{'fa-edit': controls.ok.btn, 'fa-ban': !controls.ok.btn}"></i>
+								  </button>
+								</div>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+									  <!-- text input -->
+									  <div class="form-group">
+										<label>Name <i class="text-danger">*</i></label>
+										<input type="text" class="form-control" name="name" ng-model="user.name" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.name.$touched && formHolder.user.name.$invalid}" required>
+									  </div>
+									</div>
+									<div class="col-md-6 col-sm-12">
+									  <!-- text input -->
+									  <div class="form-group">
+										<label>Groups <i class="text-danger">*</i></label>
+										<select class="form-control" name="groups" ng-model="user.groups" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.groups.$touched && formHolder.user.groups.$invalid}" required>
+											<option value="Super Admin">Super Admin</option>
+											<option value="Admin">Admin</option>
+											<option value="Teacher">Teacher</option>
+										</select>
+									  </div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+									  <!-- text input -->
+									  <div class="form-group">
+										<label>Username <i class="text-danger">*</i></label>
+										<input type="text" class="form-control" name="user_name" ng-model="user.user_name" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.user_name.$touched && formHolder.user.user_name.$invalid}" required>
+									  </div>
+									</div>
+									<div class="col-sm-6">
+										<!-- text input -->
+										<div class="form-group">
+											<label>Password <i class="text-danger">*</i></label> <small class="float-right" style="color: {{color}};">{{label}}</small>
+											<div class="input-group input-group">
+											  <input type="{{app.inputType}}" class="form-control" name="user_password" ng-model="user.user_password" ng-change="analyze(user.user_password)" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.user_password.$touched && formHolder.user.user_password.$invalid}" required>
+												<span class="input-group-append">
+													<button type="button" class="btn btn-default btn-flat" ng-model="app.passwordCheckbox" ng-click="app.hideShowPassword(this)"><i class="fa {{controls.icon.label}}"></i></button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<button type="submit" class="btn btn-info float-right" ng-click="app.save(this)" ng-disabled="controls.ok.btn">Update</button>
+									</div>
+								</div>
+							</div><!-- /.card-body -->
+						</div>
+					</div>
+				</div>
+			</form>  <!-- /.form -->
+		</div>
+	</section>
     <!-- /.content -->
 	
 	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
@@ -226,8 +292,8 @@
 <script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
 <script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
 <script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
-<script src="modules/ys.js"></script>
-<script src="controllers/ys.js"></script>
+<script src="modules/setting.js"></script>
+<script src="controllers/setting.js"></script>
 
 </body>
 </html>

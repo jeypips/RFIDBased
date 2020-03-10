@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) header('X-Error-Message: Session timeout', tru
 
 $con = new pdo_db("users");
 
-$account = $con->get(["user_id"=>$_SESSION['user_id']],["name"]);
+$account = $con->get(["user_id"=>$_SESSION['user_id']],["name, groups"]);
 
 $avatar = "angular/modules/account/avatar.png";
 
@@ -48,7 +48,7 @@ $account[0]['pages_access'] = $pages_access;
 $profile = array(
 	"fullname"=>$account[0]['name'],
 	"picture"=>$photo,
-	// "groups"=>$account[0]['groups'],
+	"groups"=>$account[0]['groups'],
 	// "pages_access"=>$pages_access,
 );
 

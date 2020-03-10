@@ -15,11 +15,22 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="row">
-								<div class="col-md-12 col-sm-12">
+								<div class="col-md-6 col-sm-12">
 								  <!-- text input -->
 								  <div class="form-group">
 									<label>Name <i class="text-danger">*</i></label>
 									<input type="text" class="form-control" name="name" ng-model="user.name" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.name.$touched && formHolder.user.name.$invalid}" required>
+								  </div>
+								</div>
+								<div class="col-md-6 col-sm-12">
+								  <!-- text input -->
+								  <div class="form-group">
+									<label>Groups <i class="text-danger">*</i></label>
+									<select class="form-control" name="groups" ng-model="user.groups" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.user.groups.$touched && formHolder.user.groups.$invalid}" required>
+										<option value="Super Admin">Super Admin</option>
+										<option value="Admin">Admin</option>
+										<option value="Teacher">Teacher</option>
+									</select>
 								  </div>
 								</div>
 							</div>
@@ -44,7 +55,7 @@
 									</div>
 								</div>
 							</div>
-								
+							<hr>
 							<div class="row">
 								<div class="col-sm-12">
 									<button type="submit" class="btn btn-default float-right" style="margin-left: 10px;" ng-click="app.list(this)" ng-disabled="controls.cancel.btn">{{controls.cancel.label}}</button>

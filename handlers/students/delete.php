@@ -12,4 +12,11 @@ $con = new pdo_db("students");
 
 $delete = $con->deleteData(array("stud_id"=>implode(",",$_POST['stud_id'])));	
 
+foreach ($_POST['stud_id'] as $stud_id) {
+		
+		$file = "../../pictures/".$stud_id.".jpg";
+		if (file_exists($file)) unlink($file);
+		
+};
+
 ?>

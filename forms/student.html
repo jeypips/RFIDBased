@@ -5,7 +5,7 @@
 				<div class="col-md-12">
 					<div class="card card-secondary">
 						<div class="card-header">
-							<h3 class="card-title">Student's Information</h3>
+							<h3 class="card-title">Learner's Information</h3>
 							<div class="card-tools">
 							  <button type="button" class="btn btn-tool" ng-click="app.edit(this)">
 								<i class="fa" ng-class="{'fa-edit': controls.ok.btn, 'fa-ban': !controls.ok.btn}"></i>
@@ -14,6 +14,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
+							<div class="row">
 								<div class="col-md-8">
 									<div class="row">
 										<div class="col-md-6 col-sm-12">
@@ -76,18 +77,36 @@
 											<input type="text" class="form-control" name="stud_nEx" ng-model="student.stud_nEx" ng-disabled="controls.ok.btn">
 										  </div>
 										</div>
-										<div class="col-md-6 col-sm-12">
+										<div class="col-md-3 col-sm-12">
 										  <div class="form-group">
-											<label>Year & Section <i class="text-danger">*</i></label>
-											<input type="text" class="form-control">
+											<label>Year<i class="text-danger">*</i></label>
+											<select class="form-control" name="stud_year_id" ng-model="student.stud_year_id" ng-options="year.year_description for year in years track by year.year_id" ng-change="app.checkYear(this,student.stud_year_id)" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_year_id.$touched && formHolder.student.stud_year_id.$invalid}" required></select>
+										  </div>
+										</div>
+										<div class="col-md-3 col-sm-12">
+										  <div class="form-group">
+											<label>Section<i class="text-danger">*</i></label>
+											<select class="form-control" name="stud_sect_id" ng-model="student.stud_sect_id"  ng-options="section.sect_description for section in sections track by section.sect_id"  ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_sect_id.$touched && formHolder.student.stud_sect_id.$invalid}" required></select>
 										  </div>
 										</div>
 									</div>
 								</div>
-								
+							
 								<div class="col-md-4">
+									<div class="col-md-12 text-center">
+										<img class="img-fluid mb-3" src="{{load.photo}}" title="User photo">
+										<h6><i>Note: ("JPG" format only)</i></h6>
+									</div>
+									<div id="profile"></div> <!-- display -->
+									<div class="col-lg-12">
+										<div class="upload-btn-wrapper" style="margin-left: 30%;">
+											<button class="btn btn-block btn-default" ng-disabled="controls.ok.btn"><i class="fa fa-camera"></i> Upload photo</button>
+											<input type="file" name="proPic" id="proPic" file-model="views.proPic" ng-disabled="controls.ok.btn">
+										</div>
+									</div>
 								</div>
-								
+							</div>
+							<hr>
 							<div class="row">
 								<div class="col-sm-12">
 									<button type="submit" class="btn btn-default float-right" style="margin-left: 10px;" ng-click="app.list(this)" ng-disabled="controls.cancel.btn">{{controls.cancel.label}}</button>

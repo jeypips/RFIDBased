@@ -17,6 +17,7 @@
 						<th>No.</th>
 						<th>Name</th>
 						<th>Username</th>
+						<th>Groups</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -25,6 +26,7 @@
 					  <td>{{$index+1}}</td>
 					  <td>{{data.name}}</td>
 					  <td>{{data.user_name}}</td>
+					  <td>{{data.groups}}</td>
 					  <td>
 						<button class="btn btn-primary btn-sm" ng-click="app.user(this,data)"><i class="fas fa-folder"></i> Update</button>
 						<button class="btn btn-danger btn-sm" ng-click="app.delete(this,data)"><i class="fas fa-trash"></i> Delete</button>

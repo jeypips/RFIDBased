@@ -28,7 +28,7 @@
 					  <td>{{data.fullname}}</td>
 					  <td>{{data.stud_address}}</td>
 					  <td>{{data.f_cour_id.cour_description}}</td>
-					  <td>Y/S</td>
+					  <td>{{data.stud_year_id.year_description}} - {{data.stud_sect_id.sect_description}}</td>
 					  <td>
 						<button class="btn btn-success btn-sm" ng-click="app.change(this,data)"><i class="fas fa-id-card"></i> Change ID</button>
 						<button class="btn btn-primary btn-sm" ng-click="app.student(this,data)"><i class="fas fa-folder"></i> Update</button>
