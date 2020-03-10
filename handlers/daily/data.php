@@ -51,10 +51,17 @@ foreach ($_courses as $ci => $course) {
 		$end_h = date("Y-m-d H:i:s",strtotime("+1 Hour",strtotime($start_h)));
 
 		$logs = $con->getData("SELECT * FROM logged_book lb INNER JOIN students s ON s.stud_id = lb.stud_id INNER JOIN course c ON c.cour_id = s.f_cour_id WHERE s.f_cour_id = '$cour' AND logb_login >= '$start_h' AND logb_login < '$end_h'");
+		/* $logs = $con->getData("SELECT COUNT(*) as countPerHour
+							FROM logged_book lb
+							INNER JOIN students s
+							ON s.stud_id = lb.stud_id
+							INNER JOIN course c
+							ON c.cour_id = s.f_cour_id
+							WHERE lb.logb_login >= '$start_h' AND logb_login < '$end_h'"); */
+							
 
 		$content[] = array(
 			"d"=>count($logs)
-			
 		);
 		
 	};
