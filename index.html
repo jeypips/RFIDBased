@@ -51,6 +51,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li><a href="ys.html" class="dropdown-item">Year & Section</a></li>
             </ul>
           </li>
+		  <li class="nav-item">
+            <a href="students.html" class="nav-link">Reports</a>
+          </li>
         </ul>
       </div>
 
@@ -74,13 +77,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content-header">
       <div class="container">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <h4 class="m-0 text-dark"> Sinapangan National High School Monitoring System using RFID</h4>
           </div><!-- /.col -->
         </div><!-- /.row -->
+		<hr>
+		 <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{dashboard.no_students}}</h3>
+                <p>Students</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-users"></i>
+              </div>
+              <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{dashboard.no_logged_book}}</h3>
+
+                <p>Logged Book</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-book"></i>
+              </div>
+              <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{dashboard.no_users}}</h3>
+
+                <p>Users</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-user"></i>
+              </div>
+              <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{dashboard.no_courses}}</h3>
+
+                <p>Strand</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-file"></i>
+              </div>
+              <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+		
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+	
+	
 
     <!-- Main content -->
     <div class="content">

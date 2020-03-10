@@ -6,9 +6,16 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 		
 		self.data = function(scope) { // initialize data			
 			
-			bui.show();
-			bui.hide();
+			$http({
+			  method: 'POST',
+			  url: 'handlers/dashboard/dashboard.php'		  
+			}).then(function mySucces(response) {
 			
+				scope.dashboard = angular.copy(response.data);
+				
+			}, function myError(response) {
+
+			});
 		};
 		
 	};
