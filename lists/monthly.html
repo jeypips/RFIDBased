@@ -1,0 +1,37 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">List</h3>
+				<div class="card-tools">
+				  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+					<i class="fas fa-minus"></i>
+				  </button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="monthlyTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Names</th>
+						<th>Address <small>(City/Barangay)</small></th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="s in students">
+					  <td>{{$index+1}}</td>
+					  <td>{{s.fullname}}</td>
+					  <td>{{s.stud_address}}</td>
+					  <td>{{s.date_added}}</td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>

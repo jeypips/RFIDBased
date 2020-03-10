@@ -14,19 +14,17 @@
 				<table id="studentsTable" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th>ID #</th>
+						<th>RFID #</th>
 						<th>Name</th>
-						<th>Address</th>
-						<th>Courses</th>
+						<th>Strand</th>
 						<th>Year & Section</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="data in students">
-					  <td>{{data.stud_studentID}}</td>
+					  <td>{{data.stud_RFID}}</td>
 					  <td>{{data.fullname}}</td>
-					  <td>{{data.stud_address}}</td>
 					  <td>{{data.f_cour_id.cour_description}}</td>
 					  <td>{{data.stud_year_id.year_description}} - {{data.stud_sect_id.sect_description}}</td>
 					  <td>
