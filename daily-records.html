@@ -1,0 +1,299 @@
+<?php include_once 'authentication.php';?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sinapangan National High School Monitoring System using RFID</title>
+  <link rel="icon" type="image/ico" href="dist/img/logo.png">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- File -->
+  <link rel="stylesheet" href="dist/css/file.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="plugins/css/font.css" rel="stylesheet">
+</head>
+<style>
+.hide{
+	visibility: hidden;
+}
+</style>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse" ng-app="daily" ng-controller="dailyCtrl" account-profile>
+<div class="wrapper">
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+		  <li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+		  </li>
+		</ul>
+
+		<!-- Right navbar links -->
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<a class="nav-link" data-toggle="dropdown" href="#">
+				  <i class="far fa-user"></i>
+				  <span class="badge badge-danger navbar-badge">2</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+					<span class="dropdown-item dropdown-header">Signed in as {{accountProfile.groups}}</span>
+					<div class="dropdown-divider"></div>
+					<a href="profile-setting.html" class="dropdown-item">
+						<div class="media">
+						  <div class="media-body">
+							<h3 class="dropdown-item-title">
+							  Account Information
+							  <span class="float-right text-sm"><i class="fa fa-user"></i></span>
+							</h3>
+						  </div>
+						</div>
+					</a>
+					<a href="#" class="dropdown-item" logout-account>
+						<div class="media">
+						  <div class="media-body">
+							<h3 class="dropdown-item-title">
+							  Logout
+							  <span class="float-right text-sm text-danger"><i class="fa fa-sign-out-alt"></i></span>
+							</h3>
+						  </div>
+						</div>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index.html" class="brand-link">
+      <img src="dist/img/image.jfif" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+      <span class="brand-text font-weight-light"> RFID - BLAMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{accountProfile.picture}}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="profile-setting.html" class="d-block">{{accountProfile.fullname}}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+			<!-- Add icons to the links using the .nav-icon class
+			   with font-awesome or any other icon font library -->
+			<li class="nav-item">
+				<a href="index.html" class="nav-link">
+				  <i class="nav-icon fas fa-tachometer-alt"></i>
+				  <p>
+					Dashboard
+				  </p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="students.html" class="nav-link">
+				  <i class="nav-icon fas fa-users"></i>
+				  <p>
+					Students
+				  </p>
+				</a>
+			</li>
+			<li class="nav-item has-treeview menu-open">
+				<a href="#" class="nav-link active">
+				  <i class="nav-icon fas fa-book"></i>
+				  <p>
+					Reports
+					<i class="right fas fa-angle-left"></i>
+				  </p>
+				</a>
+				<ul class="nav nav-treeview">
+				  <li class="nav-item">
+					<a href="daily.html" class="nav-link">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Daily Attendance</p>
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a href="daily-records.html" class="nav-link active">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Daily Attendance Records</p>
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a href="monthly-report.html" class="nav-link">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Monthly Attendance Report</p>
+					</a>
+				  </li>
+				</ul>
+			</li>
+			<li class="nav-item has-treeview">
+				<a href="#" class="nav-link">
+				  <i class="nav-icon fas fa-cogs"></i>
+				  <p>
+					Maintenance
+					<i class="right fas fa-angle-left"></i>
+				  </p>
+				</a>
+				<ul class="nav nav-treeview">
+				  <li class="nav-item">
+					<a href="users.html" class="nav-link">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Users</p>
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a href="courses.html" class="nav-link">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Courses</p>
+					</a>
+				  </li>
+				  <li class="nav-item">
+					<a href="ys.html" class="nav-link">
+					  <i class="far fa-circle nav-icon"></i>
+					  <p>Year & Section</p>
+					</a>
+				  </li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="reports.html" class="nav-link">
+				  <i class="nav-icon fas fa-id-card"></i>
+				  <p>
+					Login
+				  </p>
+				</a>
+			</li>
+		</ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+	 <section class="content-header">
+		<div class="container-fluid">
+			<div class="card card-secondary">
+				<div class="card-header">
+					<div class="row"><p>Daily Attendance of</p>
+						<div class="col-lg-2">
+							<div class="input-group input-group-sm">
+							  <input type="date" class="form-control" ng-model="filter.pickDate">
+							  <span class="input-group-append">
+								<button type="button" class="btn btn-danger btn-flat" ng-click="app.list(this)">Go!</button>
+							  </span>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<button class="btn btn-success btn-sm float-right" ng-click="app.print(this)"><i class="fa fa-print"></i> Print Report</button>
+						</div>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				
+				<div class="card-body">
+					
+					<table id="yearsTable" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Category</th>
+							<th ng-repeat="h in logs.header">{{h.h}}</th>
+							<th>Sub Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="c in logs.courses">
+						  <td ng-repeat="h in c">{{h.d}}</td>
+						  <td>{{ logs.subtotal[$index].total}}</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+						  <td></td>
+						  <td ng-repeat="h in logs.total">{{h.countPerHour}}</td>
+						  <td style="background-color: #28a745; color: white;">TOTAL:  {{logs.overall}}</td>
+						</tr>
+					</tfoot>
+				  </table>
+				</div>
+				<!-- /.card-body -->
+			</div>
+		<!-- /.card -->
+	  </div><!-- /.container-fluid -->
+	</section>
+    <!-- /.content -->
+	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2020 Profiling System.</strong>
+    All rights reserved.
+  </footer>
+  	
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+<link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">	
+<script src="angular/modules/bootbox/bootbox.min.js?ver=1.0.0.0"></script>
+<script src="angular/modules/growl/jquery.bootstrap-growl.min.js?ver=1.0.0.0"></script>
+<script src="angular/modules/blockui/jquery.blockUI.js?ver=1.0.0.0"></script>
+<link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">
+
+<!-- Js/Jspdf  -->
+<script src="angular/pdfmake/build/pdfmake.min.js"></script>
+<script src="angular/pdfmake/build/vfs_fonts.js"></script>
+<script src="angular/pdfmake/js/jspdf.min.js"></script>
+<script src="angular/pdfmake/js/jspdf.debug.js"></script>
+<script src="angular/pdfmake/js/jspdf.plugin.autotable.js"></script>	
+
+<!-- dependencies -->
+<script src="angular/angular.min.js?ver=1.0.0.0"></script>
+<script src="angular/angular-route.min.js?ver=1.0.0.0"></script>
+<script src="angular/angular-sanitize.min.js?ver=1.0.0.0"></script>
+<script src="angular/ui-bootstrap-tpls-3.0.6.min.js?ver=1.0.0.0"></script>
+
+<script src="angular/modules/my-pagination/my-pagination.js?ver=1.0.0.0"></script>
+<script src="angular/modules/account/account.js?ver=1.0.0.0"></script>
+<script src="angular/modules/bootbox/bootstrap-modal.js?ver=1.0.0.0"></script>
+<script src="angular/modules/growl/growl.js?ver=1.0.0.0"></script>
+<script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
+<script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
+<script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
+<script src="modules/daily-records.js"></script>
+<script src="controllers/daily-records.js"></script>
+
+</body>
+</html>
