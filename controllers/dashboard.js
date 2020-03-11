@@ -6,5 +6,6 @@ app.controller('dashboardCtrl',function($scope,app) {
 	
 	app.data($scope);
 	app.list($scope);
+	app.monthly($scope);
 	
 });

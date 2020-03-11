@@ -309,13 +309,13 @@
 							<div class="input-group input-group-sm">
 							  <input type="text" class="form-control" name="year" ng-model="filter.year">
 							  <span class="input-group-append">
-								<button type="button" class="btn btn-danger btn-flat" ng-click="app.list(this)">Go!</button>
+								<button type="button" class="btn btn-danger btn-flat" ng-click="app.monthly(this)">Go!</button>
 							  </span>
 							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<h6>Total: {{data.total.overall.count}}</h6>
+						<h6>Total: {{total}}</h6>
 						<div class="chart">
 						  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 						</div>

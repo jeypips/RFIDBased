@@ -8,24 +8,6 @@ session_start();
 
 $con = new pdo_db();
 
-$where = "";
-
-if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
-
-	$year = ($_POST['year']=="")?"":$_POST['year'];
-	$month = $_POST['month']['month'];
-
-	$year_month = "'%$year-$month-%'";
-	if ($month == "-") $year_month = "'$year-%'";
-
-	$where = " WHERE date_added LIKE $year_month";
-	
-	$where = " WHERE logb_login LIKE $year_month";
-
-};
-
-$overall = $con->getData("SELECT COUNT(*) count FROM logged_book".$where);
-
 $all_january = "";
 $all_february = "";
 $all_march = "";
@@ -97,8 +79,7 @@ $data = array(
 		"september"=>$data_september,
 		"october"=>$data_october,
 		"november"=>$data_november,
-		"december"=>$data_december,
-		"overall"=>$overall[0]
+		"december"=>$data_december
 	)
 );
 

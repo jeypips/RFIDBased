@@ -13,9 +13,7 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 			};
 			
 			console.log(scope);
-			
-			monthly(scope);
-				
+
 		};
 		
 		self.list = function(scope){
@@ -69,7 +67,9 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 			
 		};
 		
-		function monthly(scope){
+		self.monthly = function(scope){
+			
+			bui.show();
 			
 			$http({
 			  method: 'POST',
@@ -78,6 +78,8 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 			}).then(function mySucces(response) {
 
 				scope.data = angular.copy(response.data);
+				
+				scope.total = scope.data.total.january.length+scope.data.total.february.length+scope.data.total.march.length+scope.data.total.april.length+scope.data.total.may.length+scope.data.total.june.length+scope.data.total.july.length+scope.data.total.august.length+scope.data.total.september.length+scope.data.total.october.length+scope.data.total.november.length+scope.data.total.december.length;
 				
 				$(function () {
 				//-------------
@@ -126,9 +128,13 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 				})
 
 			});
-
+			
+				bui.hide();
+			
 			}, function myError(response) {
-
+				
+				bui.hide();
+				
 			});
 			
 		};
