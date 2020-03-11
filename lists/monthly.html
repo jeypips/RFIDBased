@@ -4,9 +4,7 @@
 			<div class="card-header">
 				<h3 class="card-title">List</h3>
 				<div class="card-tools">
-				  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-					<i class="fas fa-minus"></i>
-				  </button>
+				 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.print(this)"> <i class="fa fa-print"></i> Print Report</button>
 				</div>
 			</div>
 			<!-- /.card-header -->
@@ -22,12 +20,106 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="s in students">
+					<tr ng-repeat="s in data.students">
 					  <td>{{$index+1}}</td>
 					  <td>{{s.fullname}}</td>
 					  <td>{{s.stud_address}}</td>
 					  <td>{{s.stud_year_id.year_description}} - {{s.stud_sect_id.sect_description}}</td>
 					  <td>{{s.date_added}}</td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">Monthly Attendance Report of {{filter.year}}</h3>
+				<div class="card-tools">
+				 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.printOverall(this)"> <i class="fa fa-print"></i> Print Report</button>
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="monthlyTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">MONTH</th>
+						<th class="text-center">NUMBER OF STUDENTS</th>
+						<th class="text-center">REMARKS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					  <td class="text-center">January</td>
+					  <td class="text-center">{{data.total.january.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">February</td>
+					  <td class="text-center">{{data.total.february.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">March</td>
+					  <td class="text-center">{{data.total.march.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">April</td>
+					  <td class="text-center">{{data.total.april.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">May</td>
+					  <td class="text-center">{{data.total.may.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">June</td>
+					  <td class="text-center">{{data.total.june.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">July</td>
+					  <td class="text-center">{{data.total.july.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">August</td>
+					  <td class="text-center">{{data.total.august.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">September</td>
+					  <td class="text-center">{{data.total.september.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">October</td>
+					  <td class="text-center">{{data.total.october.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">November</td>
+					  <td class="text-center">{{data.total.november.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center">December</td>
+					  <td class="text-center">{{data.total.december.length}}</td>
+					  <td class="text-center"></td>
+					</tr>
+					<tr>
+					  <td class="text-center" style="background-color: #5BD75E">TOTAL</td>
+					  <td class="text-center" style="background-color: #5BD75E">{{data.total.overall.count}}</td>
+					  <td class="text-center" style="background-color: #5BD75E"></td>
 					</tr>
 				</tbody>
 			  </table>

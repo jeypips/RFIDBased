@@ -18,25 +18,11 @@ if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
 	$year_month = "'%$year-$month-%'";
 	if ($month == "-") $year_month = "'$year-%'";
 
-	$where = " WHERE date_added LIKE $year_month";
-	
-	$w = " WHERE logb_login LIKE $year_month";
+	$where = " WHERE logb_login LIKE $year_month";
 
 };
 
-$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students".$where);
-
-$overall = $con->getData("SELECT COUNT(*) count FROM logged_book".$w);
-
-foreach($students as $key => $s){
-		
-	$section = $con->getData("SELECT * FROM section WHERE sect_id = ".$s['stud_sect_id']);
-	$students[$key]['stud_sect_id'] = $section[0];
-	
-	$year = $con->getData("SELECT * FROM year WHERE year_id = ".$s['stud_year_id']);
-	$students[$key]['stud_year_id'] = $year[0];
-	
-};
+$overall = $con->getData("SELECT COUNT(*) count FROM logged_book".$where);
 
 $all_january = "";
 $all_february = "";
@@ -96,8 +82,7 @@ $data_october = $con->getData("SELECT logb_login FROM logged_book".$total_octobe
 $data_november = $con->getData("SELECT logb_login FROM logged_book".$total_november);
 $data_december = $con->getData("SELECT logb_login FROM logged_book".$total_december);
 
-$data = array(
-	"students"=>$students,
+$prinOverall = array(
 	"total"=> array(
 		"january"=>$data_january,
 		"february"=>$data_february,
@@ -116,6 +101,6 @@ $data = array(
 );
 
 header("Content-Type: application/json");
-echo json_encode($data);
+echo json_encode($prinOverall);
 
 ?>

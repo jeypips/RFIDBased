@@ -7,7 +7,7 @@
   <title>Sinapangan National High School Monitoring System using RFID</title>
   <link rel="icon" type="image/ico" href="dist/img/logo.png">
   <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -185,14 +185,14 @@
 				  </li>
 				</ul>
 			</li>
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a href="reports.html" class="nav-link">
 				  <i class="nav-icon fas fa-id-card"></i>
 				  <p>
 					Login
 				  </p>
 				</a>
-			</li>
+			</li> -->
 		</ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -304,7 +304,7 @@
             <!-- Map card -->
 				<div class="card card-success">
 					<div class="card-header">
-						<h3 class="card-title">Year <small>(Bar Chart)</small></h3>
+						<h3 class="card-title">Monthly <small>(Bar Chart)</small></h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm">
 							  <input type="text" class="form-control" name="year" ng-model="filter.year">
@@ -315,8 +315,9 @@
 						</div>
 					</div>
 					<div class="card-body">
+						<h6>Total: {{data.total.overall.count}}</h6>
 						<div class="chart">
-						  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 						</div>
 					</div>
 				</div>
@@ -324,7 +325,6 @@
           </section>
           <!-- right col -->
         </div>
-		
       </div><!-- /.container-fluid -->
     </section>
 	
@@ -336,7 +336,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID. All rights reserved.</strong>
+    <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -381,7 +381,6 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-
 <link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">	
 <script src="angular/modules/bootbox/bootbox.min.js?ver=1.0.0.0"></script>
 <script src="angular/modules/growl/jquery.bootstrap-growl.min.js?ver=1.0.0.0"></script>

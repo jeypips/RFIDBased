@@ -6,15 +6,17 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 		
 		self.data = function(scope) { // initialize data			
 			
+			bui.show();
+			
 			$http({
 				method: 'POST',
 				url: 'handlers/daily/data.php'
 			}).then(function mySucces(response) {
 				
-				bui.show();
 				scope.logs = response.data;
 				
 				bui.hide();
+				
 			},function myError(response) {
 				
 				bui.hide();

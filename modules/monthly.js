@@ -13,10 +13,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				cancel: {btn: false, label: 'Cancel'}
 			};
 
-			scope.student = {};
-			scope.student.stud_id = 0;
-			
-			scope.students = []; // list
+			scope.data = []; // list
 			
 			var d = new Date();
 
@@ -73,7 +70,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			  data: scope.filter
 			}).then(function mySucces(response) {
 				
-				scope.students = angular.copy(response.data);
+				scope.data = angular.copy(response.data);
 				
 				bui.hide();
 				
@@ -99,6 +96,175 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 
 			});	
 			
+		};
+		
+		self.printOverall = function(scope) {
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/monthly/printOverall.php',
+			  data: scope.filter
+			}).then(function mySucces(response) {
+				
+				scope.overall = response.data;
+				
+				printTotal(scope,response.data);
+				
+			}, function myError(response) {
+				 
+			  // error
+				
+			});
+					
+			
+		}; 
+		
+		function printTotal(scope,overall) {
+			
+			var d = new Date();
+			var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+			var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+			
+			function formatAMPM(date) {
+			  var hours = date.getHours();
+			  var minutes = date.getMinutes();
+			  var ampm = hours >= 12 ? 'pm' : 'am';
+			  hours = hours % 12;
+			  hours = hours ? hours : 12; // the hour '0' should be '12'
+			  minutes = minutes < 10 ? '0'+minutes : minutes;
+			  var strTime = hours + ':' + minutes + ' ' + ampm;
+			  return strTime;
+			}
+			
+			var doc = new jsPDF({
+				orientation: 'portrait',
+				unit: 'pt',
+				format: [612, 792]
+			});
+			
+			var doc = new jsPDF('p','mm','letter');
+			
+			function convert(str) {
+				
+				var month = new Array(7);
+				month[0] = "January";
+				month[1] = "February";
+				month[2] = "March";
+				month[3] = "April";
+				month[4] = "May";
+				month[5] = "June";
+				month[6] = "July";
+				month[7] = "August";
+				month[8] = "September";
+				month[9] = "October";
+				month[10] = "November";
+				month[11] = "December";
+				
+				var date = new Date(str),
+				mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+				day = ("0" + date.getDate()).slice(-2);
+					
+				var value = month[date.getMonth()];
+				
+				return [value, day, date.getFullYear()].join(" ");
+				
+			};
+			
+			doc.setFontSize(14)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			doc.text(20, 15, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
+			doc.text(20, 27, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
+
+			doc.setFontSize(17)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			doc.text(60, 34, 'Monthly Attendance Report of '+scope.filter.year);
+			
+			doc.setFontSize(15)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			doc.text(100, 40, ' '+scope.filter.month.description);
+			
+			console.log(scope);
+			doc.setFontSize(13)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			doc.text(55, 21, 'Sinapangan National High School Balaoan La Union');
+			// doc.text(305, 44, 'Total: '+scope.students.length);
+			
+			doc.setFontSize(10)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			
+			doc.text(3, 44, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
+			
+			var header_ = ['MONTH',"NUMBER OF STUDENTS","REMARKS"];
+			
+			var rows_ = [
+				['January',overall.total.january.length],
+				['February',overall.total.february.length],
+				['March',overall.total.march.length],
+				['April',overall.total.april.length],
+				['May',overall.total.may.length],
+				['June',overall.total.june.length],
+				['July',overall.total.july.length],
+				['August',overall.total.august.length],
+				['September',overall.total.september.length],
+				['October',overall.total.october.length],
+				['November',overall.total.november.length],
+				['December',overall.total.december.length],
+				['Total',overall.total.overall.count],
+			];
+			
+			doc.autoTable(header_, rows_,{
+				theme: 'striped',
+				margin: {
+					top: 45, 
+					left: 3 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.30,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 70,
+					
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [217, 217, 217],
+					textColor: 50,
+					fontSize: 9
+				},
+				bodyStyles: {
+					halign: 'center',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 9
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+				
+			});
+			
+			doc.setFontSize(10)
+			doc.setFont('helvetica');
+			doc.setFontType('bolditalic');
+			var pageCount = doc.internal.getNumberOfPages();
+			for(i = 0; i < pageCount; i++) { 
+				doc.setPage(i); 
+				doc.text(100,270, 'Page '+doc.internal.getCurrentPageInfo().pageNumber);
+			}
+			// pageCount maximum of page
+			
+			// doc.text(170, 210, 'Page '+doc.internal.getNumberOfPages());
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
 		};
 		
 		self.print = function(scope) {
