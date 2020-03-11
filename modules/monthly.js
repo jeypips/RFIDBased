@@ -192,14 +192,18 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontType('normal');
 			doc.text(165, 40, ' '+scope.filter.month.description);
 			
+			console.log(scope);
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
 			doc.text(123, 21, 'Sinapangan National High School Balaoan La Union');
+			doc.text(305, 44, 'Total: '+scope.students.length);
 			
 			doc.setFontSize(10)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
+			
+			doc.text(3, 44, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
 			
 			var header = ["No","ID Number","RFID No.","Name","Address","Year & Sections","Date Added"];
 			
@@ -213,6 +217,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				row.push(data.stud_RFID);
 				row.push(data.fullname);
 				row.push(data.stud_address);
+				row.push(data.stud_year_id.year_description+' - '+data.stud_sect_id.sect_description);
 				row.push(data.date_added);
 
 				rows.push(row);

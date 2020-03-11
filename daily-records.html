@@ -46,7 +46,7 @@
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 					<span class="dropdown-item dropdown-header">Signed in as {{accountProfile.groups}}</span>
 					<div class="dropdown-divider"></div>
-					<a href="profile-setting.html" class="dropdown-item">
+					<a href="setting.html" class="dropdown-item">
 						<div class="media">
 						  <div class="media-body">
 							<h3 class="dropdown-item-title">
@@ -88,7 +88,7 @@
           <img src="{{accountProfile.picture}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="profile-setting.html" class="d-block">{{accountProfile.fullname}}</a>
+          <a href="setting.html" class="d-block">{{accountProfile.fullname}}</a>
         </div>
       </div>
 
@@ -137,7 +137,7 @@
 				  <li class="nav-item">
 					<a href="monthly-report.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
-					  <p>Monthly Attendance Report</p>
+					  <p>Monthly Report</p>
 					</a>
 				  </li>
 				</ul>
@@ -192,18 +192,16 @@
 		<div class="container-fluid">
 			<div class="card card-secondary">
 				<div class="card-header">
-					<div class="row"><p>Daily Attendance of</p>
-						<div class="col-lg-2">
-							<div class="input-group input-group-sm">
-							  <input type="date" class="form-control" ng-model="filter.pickDate">
-							  <span class="input-group-append">
-								<button type="button" class="btn btn-danger btn-flat" ng-click="app.list(this)">Go!</button>
-							  </span>
-							</div>
-						</div>
-						<div class="col-lg-8">
-							<button class="btn btn-success btn-sm float-right" ng-click="app.print(this)"><i class="fa fa-print"></i> Print Report</button>
-						</div>
+					<h3 class="card-title">
+					<div class="input-group input-group-sm"> Daily Attendance of &nbsp;
+						<input type="date" class="form-control" ng-model="filter.pickDate">
+						<span class="input-group-append">
+							<button type="button" class="btn btn-danger btn-flat" ng-click="app.list(this)">Go!</button>
+						</span>
+					</div>
+					</h3>
+					<div class="card-tools">
+					  <button class="btn btn-success btn-sm float-right" ng-click="app.print(this)"><i class="fa fa-print"></i> Print Report</button>
 					</div>
 				</div>
 				<!-- /.card-header -->
@@ -245,7 +243,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 Profiling System.</strong>
+    <strong>Copyright &copy; 2020 Sinapangan National High School Monitoring System using RFID.</strong>
     All rights reserved.
   </footer>
   	

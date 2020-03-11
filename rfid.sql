@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2020 at 03:47 PM
+-- Generation Time: Mar 11, 2020 at 08:20 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -47,9 +47,21 @@ INSERT INTO `course` (`cour_id`, `cour_description`) VALUES
 
 CREATE TABLE `logged_book` (
   `logb_id` int(11) NOT NULL,
-  `f_stud_id` int(11) NOT NULL,
+  `stud_id` int(11) NOT NULL,
   `logb_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logged_book`
+--
+
+INSERT INTO `logged_book` (`logb_id`, `stud_id`, `logb_login`) VALUES
+(1, 1, '2020-03-10 00:00:00'),
+(2, 2, '2020-03-10 00:00:00'),
+(3, 2, '2020-03-10 01:00:00'),
+(4, 1, '2020-03-10 08:00:00'),
+(5, 1, '2020-03-10 00:00:00'),
+(6, 2, '2020-03-10 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -107,7 +119,7 @@ INSERT INTO `section` (`sect_id`, `f_year_id`, `sect_description`) VALUES
 
 CREATE TABLE `students` (
   `stud_id` int(11) NOT NULL,
-  `stud_studentID` int(50) DEFAULT NULL,
+  `stud_studentID` varchar(50) DEFAULT NULL,
   `stud_RFID` int(50) DEFAULT NULL,
   `stud_fName` varchar(100) DEFAULT NULL,
   `stud_mName` varchar(100) DEFAULT NULL,
@@ -118,16 +130,18 @@ CREATE TABLE `students` (
   `parent_contact_no` varchar(20) DEFAULT NULL,
   `adviser_contact_no` varchar(20) DEFAULT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `f_cour_id` int(11) DEFAULT NULL
+  `f_cour_id` int(11) DEFAULT NULL,
+  `stud_year_id` int(11) DEFAULT NULL,
+  `stud_sect_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`stud_id`, `stud_studentID`, `stud_RFID`, `stud_fName`, `stud_mName`, `stud_lName`, `stud_nEx`, `stud_photo`, `stud_address`, `parent_contact_no`, `adviser_contact_no`, `date_added`, `f_cour_id`) VALUES
-(1, 15149410, 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '09192835421', '09192835421', '2020-03-09 15:46:09', 2),
-(2, 15150974, NULL, 'Bianca', 'Seville', 'Cabahug', NULL, NULL, 'Washington', '09291823451', '09291823451', '2020-03-09 22:23:41', 1);
+INSERT INTO `students` (`stud_id`, `stud_studentID`, `stud_RFID`, `stud_fName`, `stud_mName`, `stud_lName`, `stud_nEx`, `stud_photo`, `stud_address`, `parent_contact_no`, `adviser_contact_no`, `date_added`, `f_cour_id`, `stud_year_id`, `stud_sect_id`) VALUES
+(1, '15149410', 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '9192835421', '09192835421', '2020-03-09 15:46:09', 2, 1, 2),
+(2, '15150974', 9100521, 'Bianca', 'Seville', 'Cabahug', NULL, NULL, 'Washington', '9291823451', '09291823451', '2020-03-09 22:23:41', 1, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -140,6 +154,7 @@ CREATE TABLE `users` (
   `name` varchar(100) DEFAULT NULL,
   `user_name` varchar(100) DEFAULT NULL,
   `user_password` varchar(100) DEFAULT NULL,
+  `groups` varchar(50) DEFAULT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -147,10 +162,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `name`, `user_name`, `user_password`, `date_added`) VALUES
-(1, 'John Paul Balanon', 'admin', 'admin', '2020-03-09 15:00:34'),
-(2, 'Sly Flores', 'user', 'user', '2020-03-09 15:00:34'),
-(3, 'Josephine Marcelo', 'josephine', 'josephine', '2020-03-09 19:49:14');
+INSERT INTO `users` (`user_id`, `name`, `user_name`, `user_password`, `groups`, `date_added`) VALUES
+(1, 'John Paul Balanon', 'admin', 'admin', 'Super Admin', '2020-03-09 15:00:34'),
+(2, 'Sly Flores', 'user', 'user', 'Admin', '2020-03-09 15:00:34'),
+(3, 'Josephine Marcelo', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14');
 
 -- --------------------------------------------------------
 
@@ -194,7 +209,7 @@ ALTER TABLE `course`
 --
 ALTER TABLE `logged_book`
   ADD PRIMARY KEY (`logb_id`),
-  ADD KEY `f_stud_id` (`f_stud_id`);
+  ADD KEY `f_stud_id` (`stud_id`);
 
 --
 -- Indexes for table `section`
@@ -208,7 +223,8 @@ ALTER TABLE `section`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`stud_id`),
-  ADD KEY `cour_id` (`f_cour_id`);
+  ADD KEY `cour_id` (`f_cour_id`),
+  ADD KEY `stud_year_id` (`stud_year_id`);
 
 --
 -- Indexes for table `users`
@@ -235,7 +251,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `logged_book`
 --
 ALTER TABLE `logged_book`
-  MODIFY `logb_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `logb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `section`
 --
@@ -264,7 +280,7 @@ ALTER TABLE `year`
 -- Constraints for table `logged_book`
 --
 ALTER TABLE `logged_book`
-  ADD CONSTRAINT `logged_book_ibfk_1` FOREIGN KEY (`f_stud_id`) REFERENCES `students` (`stud_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `logged_book_ibfk_1` FOREIGN KEY (`stud_id`) REFERENCES `students` (`stud_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `section`
@@ -276,7 +292,8 @@ ALTER TABLE `section`
 -- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`f_cour_id`) REFERENCES `course` (`cour_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`f_cour_id`) REFERENCES `course` (`cour_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `students_ibfk_2` FOREIGN KEY (`stud_year_id`) REFERENCES `year` (`year_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -22,10 +22,16 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				data: scope.filter
 			}).then(function mySucces(response) {
 				
+				bui.show();
+				
 				scope.logs = response.data;
 				
+				bui.hide();
+				
 			},function myError(response) {
-					
+				
+				bui.hide();
+				
 			});
 			
 		};
