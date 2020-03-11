@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2020 at 08:20 AM
+-- Generation Time: Mar 11, 2020 at 01:32 PM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rfid`
+-- Database: `acls`
 --
 
 -- --------------------------------------------------------
@@ -56,12 +56,9 @@ CREATE TABLE `logged_book` (
 --
 
 INSERT INTO `logged_book` (`logb_id`, `stud_id`, `logb_login`) VALUES
-(1, 1, '2020-03-10 00:00:00'),
-(2, 2, '2020-03-10 00:00:00'),
-(3, 2, '2020-03-10 01:00:00'),
+(1, 1, '2020-03-11 00:00:00'),
 (4, 1, '2020-03-10 08:00:00'),
-(5, 1, '2020-03-10 00:00:00'),
-(6, 2, '2020-03-10 00:00:00');
+(5, 1, '2020-03-10 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -132,16 +129,16 @@ CREATE TABLE `students` (
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `f_cour_id` int(11) DEFAULT NULL,
   `stud_year_id` int(11) DEFAULT NULL,
-  `stud_sect_id` int(11) DEFAULT NULL
+  `stud_sect_id` int(11) DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`stud_id`, `stud_studentID`, `stud_RFID`, `stud_fName`, `stud_mName`, `stud_lName`, `stud_nEx`, `stud_photo`, `stud_address`, `parent_contact_no`, `adviser_contact_no`, `date_added`, `f_cour_id`, `stud_year_id`, `stud_sect_id`) VALUES
-(1, '15149410', 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '9192835421', '09192835421', '2020-03-09 15:46:09', 2, 1, 2),
-(2, '15150974', 9100521, 'Bianca', 'Seville', 'Cabahug', NULL, NULL, 'Washington', '9291823451', '09291823451', '2020-03-09 22:23:41', 1, 2, 7);
+INSERT INTO `students` (`stud_id`, `stud_studentID`, `stud_RFID`, `stud_fName`, `stud_mName`, `stud_lName`, `stud_nEx`, `stud_photo`, `stud_address`, `parent_contact_no`, `adviser_contact_no`, `date_added`, `f_cour_id`, `stud_year_id`, `stud_sect_id`, `is_deleted`) VALUES
+(1, '15149410', 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '9192835421', '09192835421', '2020-03-09 15:46:09', 2, 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -165,7 +162,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `name`, `user_name`, `user_password`, `groups`, `date_added`) VALUES
 (1, 'John Paul Balanon', 'admin', 'admin', 'Super Admin', '2020-03-09 15:00:34'),
 (2, 'Sly Flores', 'user', 'user', 'Admin', '2020-03-09 15:00:34'),
-(3, 'Josephine Marcelo', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14');
+(3, 'Josephine Marcelo', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14'),
+(4, 'sample', 'sample', 'sample', 'Teacher', '2020-03-11 13:27:42');
 
 -- --------------------------------------------------------
 
@@ -266,7 +264,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `year`
 --
