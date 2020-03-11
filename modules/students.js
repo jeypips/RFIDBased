@@ -285,20 +285,20 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 		};
 		
 		self.delete = function(scope,row) {
-
+			
 			var onOk = function() {
-				
-				if (scope.$id > 2) scope = scope.$parent;			
 				
 				$http({
 				  method: 'POST',
-				  url: 'handlers/students/delete.php',
-				  data: {stud_id: [row.stud_id]}
+				  url: 'handlers/students/archive.php',
+				  data: {stud_id: scope.data.stud_id}
 				}).then(function mySucces(response) {
 
+					scope.student = angular.copy(response.data);
+					
 					self.list(scope);
 					
-					growl.show('alert alert-success',{from: 'top', amount: 55},'Successfully deleted.');
+					growl.show('alert alert-success',{from: 'top', amount: 55},'Successfully.');
 					
 				}, function myError(response) {
 					 
@@ -308,7 +308,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 
 			};
 
-			bootstrapModal.confirm(scope,'Confirmation','Are you sure you want to delete this record?',onOk,function() {});
+			bootstrapModal.confirm(scope,'Confirmation','Are you sure you want to archive this record?',onOk,function() {});
 			
 		};
 		

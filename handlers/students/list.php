@@ -6,7 +6,7 @@ require_once '../../db.php';
 
 $con = new pdo_db();
 
-$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students");
+$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE is_deleted = '0'");
 
 foreach($students as $key => $student){
 	
