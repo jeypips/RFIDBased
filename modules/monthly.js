@@ -181,12 +181,6 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontType('normal');
 			doc.text(60, 34, 'Monthly Attendance Report of '+scope.filter.year);
 			
-			doc.setFontSize(15)
-			doc.setFont('Arial');
-			doc.setFontType('normal');
-			doc.text(100, 40, ' '+scope.filter.month.description);
-			
-			console.log(scope);
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
