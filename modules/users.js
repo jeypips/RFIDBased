@@ -139,7 +139,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 					growl.show('alert alert-success no-border mb-2',{from: 'top', amount: 55},'Successfully updated.');
 				};
 				
-				scope.controls.ok.btn = true;
+				mode(scope,scope.user);
 				
 			}, function myError(response) {
 				
