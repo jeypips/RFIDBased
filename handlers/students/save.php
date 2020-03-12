@@ -19,7 +19,7 @@ if ($_POST['stud_id']) {
 	
 	$student = $con->insertObj($_POST);
 	$id = $con->insertId;
-	echo $con->insertId;
+	echo $id;
 }
 
 ?>
