@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2020 at 08:23 AM
+-- Generation Time: Mar 13, 2020 at 09:17 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -57,7 +57,7 @@ CREATE TABLE `logged_book` (
 --
 
 INSERT INTO `logged_book` (`logb_id`, `stud_id`, `logb_login`) VALUES
-(1, 1, '2020-03-11 00:00:00'),
+(1, 1, '2020-03-13 00:00:00'),
 (4, 1, '2020-03-10 08:00:00'),
 (5, 1, '2020-03-10 00:00:00');
 
