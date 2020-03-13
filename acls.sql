@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2020 at 09:17 AM
+-- Generation Time: Mar 13, 2020 at 09:23 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -163,9 +163,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `user_name`, `user_password`, `groups`, `date_added`) VALUES
 (1, 'Josephine Marcelo', 'admin', 'admin', 'Super Admin', '2020-03-09 15:00:34'),
-(2, 'Sly Flores', 'user', 'user', 'Admin', '2020-03-09 15:00:34'),
-(3, 'John Paul Balanon', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14'),
-(4, 'sample', 'sample', 'sample', 'Teacher', '2020-03-11 13:27:42');
+(2, 'Sam Milby', 'user', 'user', 'Admin', '2020-03-09 15:00:34'),
+(3, 'Johnny Bravo', 'teacher', 'teacher', 'Teacher', '2020-03-13 09:23:04');
 
 -- --------------------------------------------------------
 
@@ -266,7 +265,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `year`
 --
