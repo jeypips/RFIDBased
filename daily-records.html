@@ -188,59 +188,27 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-	 <section class="content-header">
-		<div class="container-fluid">
-			<div class="card card-secondary">
-				<div class="card-header">
-					<h3 class="card-title">
-					<div class="input-group input-group-sm"> Daily Attendance of &nbsp;
-						<input type="date" class="form-control" ng-model="filter.pickDate">
-						<span class="input-group-append">
-							<button type="button" class="btn btn-danger btn-flat" ng-click="app.list(this)">Go!</button>
-						</span>
-					</div>
-					</h3>
-					<div class="card-tools">
-					  <button class="btn btn-success btn-sm float-right" ng-click="app.print(this)"><i class="fa fa-print"></i> Print Report</button>
+		<div class="content-header">
+		  <div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Daily Attendance of </label>
+				  <div class="input-group form-group">
+					  <input type="date" class="form-control" ng-model="filter.pickDate">
+					  <span class="input-group-append">
+						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
+					  </span>
 					</div>
 				</div>
-				<!-- /.card-header -->
-				
-				<div class="card-body">
-					
-					<table id="yearsTable" class="table table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>Category</th>
-							<th ng-repeat="h in logs.header">{{h.h}}</th>
-							<th>Sub Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="c in logs.courses">
-						  <td ng-repeat="h in c">{{h.d}}</td>
-						  <td>{{ logs.subtotal[$index].total}}</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-						  <td></td>
-						  <td ng-repeat="h in logs.total">{{h.countPerHour}}</td>
-						  <td style="background-color: #28a745; color: white;">TOTAL:  {{logs.overall}}</td>
-						</tr>
-					</tfoot>
-				  </table>
-				</div>
-				<!-- /.card-body -->
-			</div>
-		<!-- /.card -->
-	  </div><!-- /.container-fluid -->
-	</section>
-    <!-- /.content -->
-	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-      <i class="fas fa-chevron-up"></i>
-    </a>
-  </div>
+			</div><!-- /.row -->
+		  </div><!-- /.container-fluid -->
+		</div>
+		<div id="content"></div> <!-- display -->
+		<!-- /.content -->
+		<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+			<i class="fas fa-chevron-up"></i>
+		</a>
+	</div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2020 Sinapangan National High School Monitoring System using RFID.</strong>

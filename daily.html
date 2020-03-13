@@ -225,6 +225,44 @@
 		<!-- /.card -->
 	  </div><!-- /.container-fluid -->
 	</section>
+	
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="card card-secondary">
+				<div class="card-header">
+					<h3 class="card-title">Learners</h3>
+					<div class="card-tools">
+					 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.print_s(this)"> <i class="fa fa-print"></i> Print Report</button>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table id="learnersTable" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>ID Number</th>
+							<th>Names</th>
+							<th>Address <small>(City/Barangay)</small></th>
+							<th>Year & Section</th>
+							<th>Logged in</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="s in students">
+						  <td>{{s.stud_id.stud_studentID}}</td>
+						  <td>{{s.stud_id.fullname}}</td>
+						  <td>{{s.stud_id.stud_address}}</td>
+						  <td>{{s.stud_id.stud_year_id.year_description}} - {{s.stud_id.stud_sect_id.sect_description}}</td>
+						  <td>{{s.logb_login}}</td>
+						</tr>
+					</tbody>
+				  </table>
+				</div>
+				<!-- /.card-body -->
+			</div>
+		<!-- /.card -->
+	  </div><!-- /.container-fluid -->
+	</section>
     <!-- /.content -->
 	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>

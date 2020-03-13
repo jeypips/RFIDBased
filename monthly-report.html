@@ -188,39 +188,35 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-	 <div class="content-header">
-      <div class="container-fluid">
-        <div class="row">
-			<div class="col-sm-4">
-			  <!-- text input -->
-			  <div class="form-group">
-				<label>Year</label>
-				<input type="text" class="form-control" ng-model="filter.year">
-			  </div>
-			</div>
-			<div class="col-sm-4">
-			  <!-- text input -->
-			  <label>Month</label>
-			  <div class="input-group form-group">
-                  <select type="date" class="form-control" ng-model="filter.month" ng-options="month.description for month in months track by month.month"></select>
-                  <span class="input-group-append">
-                    <button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
-                  </span>
-                </div>
-			</div>
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-	
-	<div id="content"></div> <!-- display -->
-	
-    <!-- /.content -->
-	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-      <i class="fas fa-chevron-up"></i>
-    </a>
-	
-	
-  </div>
+		<div class="content-header">
+		  <div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <div class="form-group">
+					<label>Year</label>
+					<input type="text" class="form-control" ng-model="filter.year">
+				  </div>
+				</div>
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <label>Month</label>
+				  <div class="input-group form-group">
+					  <select type="date" class="form-control" ng-model="filter.month" ng-options="month.description for month in months track by month.month"></select>
+					  <span class="input-group-append">
+						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
+					  </span>
+					</div>
+				</div>
+			</div><!-- /.row -->
+		  </div><!-- /.container-fluid -->
+		</div>
+		<div id="content"></div> <!-- display -->
+		<!-- /.content -->
+		<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+			<i class="fas fa-chevron-up"></i>
+		</a>
+	</div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID.</strong>
