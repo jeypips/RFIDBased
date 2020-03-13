@@ -7,27 +7,41 @@
   <title>Sinapangan National High School Monitoring System using RFID</title>
   <link rel="icon" type="image/ico" href="dist/img/logo.png">
   <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+ <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- File -->
-  <link rel="stylesheet" href="dist/css/file.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="plugins/css/font.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <style>
-.hide{
-	visibility: hidden;
-}
+	.hide{
+		visibility: hidden;
+	}
+	.student-profile {
+		font-size: 2em;
+	}
 </style>
-<body class="hold-transition sidebar-mini layout-fixed" ng-app="users" ng-controller="usersCtrl" account-profile>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse" ng-app="tap" ng-controller="tapCtrl" account-profile>
 <div class="wrapper">
-	<!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 		<!-- Left navbar links -->
 		<ul class="navbar-nav">
@@ -40,7 +54,7 @@
 		</ul>
 
 		<!-- Right navbar links -->
-		<ul class="navbar-nav ml-auto">
+		<!-- <ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown">
 				<a class="nav-link" data-toggle="dropdown" href="#">
 				  <i class="far fa-user"></i>
@@ -71,7 +85,7 @@
 					</a>
 				</div>
 			</li>
-		</ul>
+		</ul> -->
 	</nav>
 	<!-- /.navbar -->
 
@@ -85,7 +99,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user (optional) -->
+      <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{accountProfile.picture}}" class="img-circle elevation-2" alt="User Image">
@@ -145,8 +159,8 @@
 				  </li>
 				</ul>
 			</li>
-			<li class="nav-item has-treeview menu-open">
-				<a href="#" class="nav-link active">
+			<li class="nav-item has-treeview">
+				<a href="#" class="nav-link">
 				  <i class="nav-icon fas fa-cogs"></i>
 				  <p>
 					Maintenance
@@ -155,7 +169,7 @@
 				</a>
 				<ul class="nav nav-treeview">
 				  <li class="nav-item">
-					<a href="users.html" class="nav-link active">
+					<a href="users.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Users</p>
 					</a>
@@ -175,7 +189,7 @@
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a href="tap.html" class="nav-link">
+				<a href="tap.html" class="nav-link active">
 				  <i class="nav-icon fas fa-id-card"></i>
 				  <p>
 					Login
@@ -189,53 +203,113 @@
     <!-- /.sidebar -->
   </aside>
 
-	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper">
-   
-	  <div id="content"></div> <!-- display -->
-	  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+		<p class="alert alert-info" style="text-align: center; margin-top: 25px;">
+		  Tap your RFID Card to login or logout
+		</p>			
+    </div>
+    <!-- /.content-header -->
+	<hr>
+    <!-- Main content -->
+    <section class="content" ng-show="shows.found">	
+      <div class="container-fluid">
+        <div class="row">
+		  <div class="col-lg-6" style="text-align: right;">
+			<img class="img" style="width: 50%;" src="{{student.photo}}">
+		  </div>
+		  <div class="col-lg-6 student-profile">
+			<span class="text-muted">Student: </span><strong>{{student.name}}</strong><br>
+			<span class="text-muted">Year/Section: </span><strong>{{student.year_section}}</strong><br>
+			<span class="text-muted">Course: </span><strong>{{student.course}}</strong><br>
+			<span class="text-muted">Time: </span><strong>{{student.time}}</strong>
+		  </div>
+        </div>
+      </div>	  
+    </section>
+	
+    <section class="content" ng-show="shows.not_found">	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12" style="text-align: center; padding-top: 25px;">
+					<span class="alert alert-danger">ID Not Registered</span>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+    <section class="content" ng-show="shows.logout">	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12" style="text-align: center; padding-top: 25px; font-size: 2em;">
+					<span class="alert alert-success">Thank You!</span>
+				</div>
+			</div>
+		</div>
+	</section>	
+	
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-	
-	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-      <i class="fas fa-chevron-up"></i>
-    </a>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 Sinapangan National High School Monitoring System using RFID.</strong>
-    All rights reserved.
+    <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID.</strong> All rights reserved.
   </footer>
-  	
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- bs-custom-file-input -->
-<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- <script src="dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-
 <link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">	
 <script src="angular/modules/bootbox/bootbox.min.js?ver=1.0.0.0"></script>
 <script src="angular/modules/growl/jquery.bootstrap-growl.min.js?ver=1.0.0.0"></script>
 <script src="angular/modules/blockui/jquery.blockUI.js?ver=1.0.0.0"></script>
 <link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">
 
-<!-- Js/Jspdf  -->
-<script src="angular/pdfmake/build/pdfmake.min.js"></script>
-<script src="angular/pdfmake/build/vfs_fonts.js"></script>
-<script src="angular/pdfmake/js/jspdf.min.js"></script>
-<script src="angular/pdfmake/js/jspdf.debug.js"></script>
-<script src="angular/pdfmake/js/jspdf.plugin.autotable.js"></script>	
+<script src="js/jquery.rfid.js"></script>
 
 <!-- dependencies -->
 <script src="angular/angular.min.js?ver=1.0.0.0"></script>
@@ -243,15 +317,12 @@
 <script src="angular/angular-sanitize.min.js?ver=1.0.0.0"></script>
 <script src="angular/ui-bootstrap-tpls-3.0.6.min.js?ver=1.0.0.0"></script>
 
-<script src="angular/modules/my-pagination/my-pagination.js?ver=1.0.0.0"></script>
 <script src="angular/modules/account/account.js?ver=1.0.0.0"></script>
 <script src="angular/modules/bootbox/bootstrap-modal.js?ver=1.0.0.0"></script>
 <script src="angular/modules/growl/growl.js?ver=1.0.0.0"></script>
 <script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
-<script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
-<script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
-<script src="modules/users.js"></script>
-<script src="controllers/users.js"></script>
+
+<script src="controllers/tap.js" type="text/javascript"></script>
 
 </body>
 </html>
