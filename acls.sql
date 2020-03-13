@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2020 at 01:32 PM
+-- Generation Time: Mar 13, 2020 at 08:23 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -36,8 +36,9 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`cour_id`, `cour_description`) VALUES
-(1, 'Learners'),
-(2, 'Faculty');
+(1, 'Humanities and Social Sciences Strand (HUMMS)'),
+(2, 'General Academic Strand (GAS)'),
+(3, 'Sa');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`stud_id`, `stud_studentID`, `stud_RFID`, `stud_fName`, `stud_mName`, `stud_lName`, `stud_nEx`, `stud_photo`, `stud_address`, `parent_contact_no`, `adviser_contact_no`, `date_added`, `f_cour_id`, `stud_year_id`, `stud_sect_id`, `is_deleted`) VALUES
-(1, '15149410', 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '9192835421', '09192835421', '2020-03-09 15:46:09', 2, 1, 2, 0);
+(1, '15149410', 9100543, 'Kyla marie', 'Boholano', 'Sarino', NULL, 'images/20170222115511.jpg', 'Villaba', '9192835421', '09192835421', '2020-03-09 15:46:09', 2, 1, 2, 0),
+(2, '928382', 9054656, 'John', 'Paul', 'Balanon', NULL, NULL, 'SFC LA UNION', '9484556985', '9945568695', '2020-03-12 16:26:11', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -160,9 +162,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `user_name`, `user_password`, `groups`, `date_added`) VALUES
-(1, 'John Paul Balanon', 'admin', 'admin', 'Super Admin', '2020-03-09 15:00:34'),
+(1, 'Josephine Marcelo', 'admin', 'admin', 'Super Admin', '2020-03-09 15:00:34'),
 (2, 'Sly Flores', 'user', 'user', 'Admin', '2020-03-09 15:00:34'),
-(3, 'Josephine Marcelo', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14'),
+(3, 'John Paul Balanon', 'josephine', 'josephine', 'Teacher', '2020-03-09 19:49:14'),
 (4, 'sample', 'sample', 'sample', 'Teacher', '2020-03-11 13:27:42');
 
 -- --------------------------------------------------------
@@ -244,12 +246,12 @@ ALTER TABLE `year`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `cour_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cour_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `logged_book`
 --
 ALTER TABLE `logged_book`
-  MODIFY `logb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `logb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `section`
 --
@@ -259,7 +261,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `stud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `stud_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
