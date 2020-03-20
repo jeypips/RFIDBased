@@ -10,20 +10,20 @@ $con = new pdo_db();
 
 $stud_id = $_POST['stud_id'];
 
-$load = "";
+$load = [];
 
-$photo = '../../pictures/'.$stud_id.'.jpg';
+$photo_ph = 'pictures/avatar.png';
 
-if (file_exists($photo))
-{
-	$photo = "pictures/$stud_id.jpg";
-	
-} else{
-	
-	$photo = "pictures/avatar.png";
+$get_photo = $con->getData("SELECT stud_photo FROM students WHERE stud_id = $stud_id");
+
+if (count($get_photo)) {
+
+	$check = "../../".$get_photo[0]['stud_photo'];
+
+	if (file_exists($check)) $load['photo'] = $get_photo[0]['stud_photo'];
+	else $load['photo'] = $photo_ph;
 	
 }
-$load['photo'] = $photo;
 
 header("Content-Type:application/json");
 echo json_encode($load);

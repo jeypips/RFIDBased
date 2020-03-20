@@ -34,8 +34,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 		};
 		
-		function load(scope){
-			
+		function load(scope){			
+
 			$http({
 			  method: 'POST',
 			  url: 'handlers/students/load.php',
@@ -153,7 +153,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 					scope.student = angular.copy(response.data);
 					
 					scope.sections = response.data.stud_year_id.sections;
-					
+
 					load(scope);
 					
 					mode(scope,row);
