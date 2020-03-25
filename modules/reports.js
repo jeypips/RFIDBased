@@ -7,7 +7,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 		self.data = function(scope) { // initialize data			
 			
 			var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
-			
+	
 			scope.filter = {
 				pickDate: new Date(),
 				course: "",
@@ -168,7 +168,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFont('Arial');
 			doc.setFontType('normal');
 			doc.text(123, 21, 'Sinapangan National High School Balaoan La Union');
-			doc.text(305, 44, 'Total: '+scope.datas.length);
+			doc.text(192, 49, 'AM');
+			doc.text(296, 49, 'PM');
 			
 			doc.setFontSize(10)
 			doc.setFont('Arial');
@@ -176,7 +177,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			doc.text(3, 44, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
 			
-			var header = ["No","ID Number","RFID No.","Name","Address","Year & Sections","Logged in"];
+			var header = ["No","Names","In","Out","In","Out"];
 			
 			var rows = [];
 			
@@ -184,12 +185,11 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 				var row = [];
 				row.push(key+1);
-				row.push(data.stud_id.stud_studentID);
-				row.push(data.stud_id.stud_RFID);
-				row.push(data.stud_id.fullname);
-				row.push(data.stud_id.stud_address);
-				row.push(data.stud_id.stud_year_id.year_description+' - '+data.stud_id.stud_sect_id.sect_description);
-				row.push(data.logb_login);
+				row.push(data.fullname);
+				row.push(data.logs[0].time_in_out);
+				row.push(data.logs[1].time_in_out);
+				row.push(data.logs[2].time_in_out);
+				row.push(data.logs[3].time_in_out);
 
 				rows.push(row);
 
@@ -198,7 +198,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.autoTable(header, rows,{
 				theme: 'striped',
 				margin: {
-					top: 45, 
+					top: 50, 
 					left: 3 
 				},
 				tableWidth: 500,
@@ -207,8 +207,15 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 					lineWidth: 0.30,
 					cellPadding: 3,
 					overflow: 'linebreak',
-					columnWidth: 50,
-					
+					// columnWidth: 50,
+				},
+				columnStyles: {
+					0: {columnWidth: 20}, // 
+					1: {columnWidth: 120}, //
+					2: {columnWidth: 52}, // 
+					3: {columnWidth: 52}, //
+					4: {columnWidth: 52}, //
+					5: {columnWidth: 52}, //
 				},
 				headerStyles: {
 					halign: 'center',
