@@ -56,12 +56,12 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			$http({
 				method: 'POST',
-				url: 'handlers/reports/students.php',
+				url: 'handlers/months/students.php',
 				data: scope.filter
 			}).then(function mySucces(response) {
 				
 				scope.students = response.data;
-				
+					
 				bui.hide();
 				
 			},function myError(response) {
@@ -70,15 +70,13 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				
 			});
 			
-			console.log(scope);
-			
 		};
 		
 		self.print_s = function(scope) {
 			
 			$http({
 			  method: 'POST',
-			  url: 'handlers/reports/printStudents.php',
+			  url: 'handlers/months/printStudents.php',
 			  data: scope.filter
 			}).then(function mySucces(response) {
 				

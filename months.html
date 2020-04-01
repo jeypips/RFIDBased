@@ -25,7 +25,7 @@
 	visibility: hidden;
 }
 </style>
-<body class="hold-transition sidebar-mini layout-fixed" ng-app="students" ng-controller="studentsCtrl" account-profile>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse" ng-app="reports" ng-controller="reportsCtrl" account-profile>
 <div class="wrapper">
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -106,15 +106,15 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a href="students.html" class="nav-link active">
+				<a href="students.html" class="nav-link">
 				  <i class="nav-icon fas fa-users"></i>
 				  <p>
 					Learners
 				  </p>
 				</a>
 			</li>
-			<li class="nav-item has-treeview">
-				<a href="#" class="nav-link">
+			<li class="nav-item has-treeview menu-open">
+				<a href="#" class="nav-link active">
 				  <i class="nav-icon fas fa-book"></i>
 				  <p>
 					Reports
@@ -123,12 +123,12 @@
 				</a>
 				<ul class="nav nav-treeview">
 				  <li class="nav-item">
-					<a href="reports.html" class="nav-link">
+					<a href="reports.html" class="nav-link active">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Learners Report</p>
 					</a>
 				  </li>
-				 <!--  <li class="nav-item">
+				  <!-- <li class="nav-item">
 					<a href="daily.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Daily Attendance</p>
@@ -194,20 +194,71 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-   
-	  <div id="content"></div> <!-- display -->
-	  
-    </section>
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-2">
+					<label>Date</label>
+					<div class="form-group input-group">
+					  <input type="date" class="form-control" ng-model="filter.pickDate">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<label>Strands</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label>Year</label>
+					<div class="input-group form-group">
+					  <select class="form-control" ng-model="filter.year" ng-options="y.year_description for y in years track by y.year_id"></select>
+					  <span class="input-group-append">
+						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
+					  </span>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="card card-secondary">
+				<div class="card-header">
+					<h3 class="card-title">Learners</h3>
+					<div class="card-tools">
+					 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.print_s(this)"> <i class="fa fa-print"></i> Print Report</button>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Names</th>
+							<th ng-repeat="d in students.dates">{{d}}</th>
+							<!-- <th><i class="fa fa-check"></i></th> -->
+						</tr>
+					</thead>
+					<!-- <!-- <tbody> -->
+						<tr ng-repeat="s in students.students">
+						  <td>{{s.fullname}}</td>
+						  
+						  <td ng-repeat="sl in s.logs"><i class="{{sl[0].checked}}"></i></td>
+						</tr>
+					</tbody> 
+				  </table>
+				</div>
+				<!-- /.card-body -->
+			</div>
+		<!-- /.card -->
+	  </div><!-- /.container-fluid -->
+	</section>
     <!-- /.content -->
-	
 	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>
     </a>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong><center>Copyright &copy; 2020 RFID-Based Learners Attendance Monitoring System with SMS Notification.</center></strong>
-   <center> All rights reserved.</center>
+    <strong>Copyright &copy; 2020 Sinapangan National High School Monitoring System using RFID.</strong>
+    All rights reserved.
   </footer>
   	
 </div>
@@ -253,8 +304,8 @@
 <script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
 <script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
 <script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
-<script src="modules/students.js"></script>
-<script src="controllers/students.js"></script>
+<script src="modules/months.js"></script>
+<script src="controllers/months.js"></script>
 
 </body>
 </html>
