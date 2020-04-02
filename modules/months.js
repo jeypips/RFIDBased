@@ -8,12 +8,29 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
 	
-			scope.filter = {
-				pickDate: new Date(),
-				course: "",
-				year: ""
-			};
+			scope.months = [
+				{month:"01",description:"January"},
+				{month:"02",description:"February"},
+				{month:"03",description:"March"},
+				{month:"04",description:"April"},
+				{month:"05",description:"May"},
+				{month:"06",description:"June"},
+				{month:"07",description:"July"},
+				{month:"08",description:"August"},
+				{month:"09",description:"September"},
+				{month:"10",description:"October"},
+				{month:"11",description:"November"},
+				{month:"12",description:"December"}
+			];
 
+
+			scope.filter = {
+				year: date.getFullYear(),
+				month: scope.months[0],
+				course:"",
+				selectyear:""
+			};
+			
 			
 		};
 		
@@ -183,12 +200,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			angular.forEach(datas, function(data,key) {
 			
 				var row = [];
-				row.push(key+1);
-				row.push(data.fullname);
-				row.push(data.logs[0].time_in_out);
-				row.push(data.logs[1].time_in_out);
-				row.push(data.logs[2].time_in_out);
-				row.push(data.logs[3].time_in_out);
+				
 
 				rows.push(row);
 
