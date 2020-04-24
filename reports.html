@@ -125,10 +125,10 @@
 				  <li class="nav-item">
 					<a href="reports.html" class="nav-link active">
 					  <i class="far fa-circle nav-icon"></i>
-					  <p>Learners Report</p>
+					  <p>Daily Report</p>
 					</a>
 				  </li>
-				   <li class="nav-item">
+				<!--  <li class="nav-item">
 					<a href="months.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Monthly Attendance Report</p>
@@ -139,7 +139,7 @@
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Daily Attendance Records</p>
 					</a>
-				  </li>
+				  </li> -->
 				  <li class="nav-item">
 					<a href="monthly-report.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
@@ -197,10 +197,24 @@
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-2">
-					<label>Date</label>
+				<div class="col-sm-4">
+					<label>From</label>
 					<div class="form-group input-group">
-					  <input type="date" class="form-control" ng-model="filter.pickDate">
+					  <input type="date" class="form-control" ng-model="filter.from">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<label>To</label>
+					<div class="form-group input-group">
+					  <input type="date" class="form-control" ng-model="filter.to">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Names</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.name" ng-options="d.fullname for d in data_stud track by d.stud_id"></select>
 					</div>
 				</div>
 				<div class="col-sm-4">
@@ -209,10 +223,16 @@
 					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
 					</div>
 				</div>
-				<div class="col-sm-3">
-					<label>Year</label>
+				<div class="col-sm-2">
+					<label>Grade Level</label>
+					<div class="form-group">
+					 <select class="form-control" ng-model="filter.year" ng-options="y.year_description for y in years track by y.year_id" ng-change="app.checkYear(this,filter.year)"></select>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<label>Sections</label>
 					<div class="input-group form-group">
-					  <select class="form-control" ng-model="filter.year" ng-options="y.year_description for y in years track by y.year_id"></select>
+						<select class="form-control" ng-model="filter.section" ng-options="s.sect_description for s in sections track by s.sect_id"></select>
 					  <span class="input-group-append">
 						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
 					  </span>
@@ -235,6 +255,7 @@
 							<th>&nbsp;</th>
 							<th colspan="2" style="text-align: center;">AM</th>
 							<th colspan="2" style="text-align: center;">PM</th>
+							<th>&nbsp;</th>
 						</tr>
 						<tr>
 							<th>No.</th>
@@ -245,14 +266,16 @@
 							
 							<th>In</th> <!-- PM -->
 							<th>Out</th>
+							<th>Date</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="s in students">
+						<tr ng-repeat="l in logs">
 						  <td>{{$index+1}}</td>
-						  <td>{{s.fullname}}</td>
+						  <td>{{l.stud_id.fullname}}</td>
 						  
-						  <td ng-repeat="l in s.logs">{{l.time_in_out}}</td>
+						  <td ng-repeat="s in l.stud_id.attendance">{{s.time_in_out}}</td>
+						   <td>{{l.date_label}}</td>
 						</tr>
 					</tbody>
 				  </table>

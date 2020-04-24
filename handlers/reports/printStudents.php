@@ -6,26 +6,26 @@ require_once '../../db.php';
 
 $con = new pdo_db();
 
-$datePick = $_POST['pickDate'];
-
-$newDate = date("Y-m-d ", strtotime($datePick));
+$from = date("Y-m-d ", strtotime($_POST['from']));
+$to = date("Y-m-d ", strtotime($_POST['to']));
 
 // $students = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%M %d, %Y') logb_login FROM logged_book");
 
 $cour_id = isset($_POST['course']['cour_id'])?$_POST['course']['cour_id']:"";
 $year_id = isset($_POST['year']['year_id'])?$_POST['year']['year_id']:"";
+$sect_id = isset($_POST['section']['sect_id'])?$_POST['section']['sect_id']:"";
 
-if($cour_id==""&&$year_id==!"") {
+if($cour_id==!""&&$year_id==!""&&$sect_id==!"") {
 	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE stud_year_id = '$year_id'");
+	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id' AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
 
-} else if ($cour_id==!""&&$year_id=="")  {
-	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id'");
-
-} else if ($cour_id==!""&&$year_id==!""){
+} else if ($cour_id==!""&&$year_id==!""&&$sect_id=="")  {
 	
 	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id' AND stud_year_id = '$year_id'");
+
+} else if ($cour_id==!""&&$year_id==""&&$sect_id==""){
+	
+	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id'");
 
 } else {
 	
@@ -44,7 +44,7 @@ foreach($datas as $key => $s){
 	$course = $con->getData("SELECT * FROM course WHERE cour_id = ".$s['f_cour_id']);
 	$datas[$key]['f_cour_id'] = $course[0];
 	
-	$logs = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out FROM logged_book WHERE date(logb_login) = '$newDate' AND stud_id = ".$s['stud_id']);
+	$logs = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out FROM logged_book WHERE (logb_login BETWEEN '$from' AND '$to') AND stud_id = ".$s['stud_id']);
 	if(empty($logs)){
 		$logs = array(
 			0=> array("time_in_out"=>"No time in/out"),

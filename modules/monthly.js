@@ -35,8 +35,56 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 
 			scope.filter = {
 				year: d.getFullYear(),
-				month: scope.months[0]
+				month: scope.months[0],
+				course: "",
+				section: "",
+				grade: ""
 			};
+			
+		};
+		
+		function courses(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/courses.php'
+			}).then(function mySucces(response) {
+				
+				scope.courses = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function data_stud(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/students.php'
+			}).then(function mySucces(response) {
+				
+				scope.data_stud = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function years(scope){
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/ys.php'
+			}).then(function mySucces(response) {
+				
+				scope.years = response.data;
+				
+			},function myError(response) {
+				//error
+			});
 			
 		};
 		
@@ -61,6 +109,12 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 		self.list = function(scope) {
 			
 			bui.show();
+			
+			data_stud(scope);
+			courses(scope);
+			years(scope);
+			
+			console.log(scope);
 			
 			if (scope.$id > 2) scope = scope.$parent;
 
@@ -95,6 +149,21 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				},200);
 
 			});	
+			
+		};
+		
+		self.checkYear = function(scope,grade) {
+			
+			scope.sections = scope.filter.grade.sections;
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/reports/check-year.php'
+			}).then(function mySucces(response) {
+				
+			}, function myError(response) {
+				
+			});
 			
 		};
 		
@@ -173,18 +242,19 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(14)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(20, 15, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
-			doc.text(20, 27, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
+			doc.text(100, 15, 'DEPED');
+			doc.text(99.5, 21, 'Region 1');
+			doc.text(85, 27, 'Division of La Union');
+			doc.text(73, 33, 'Sinapangan National High School');
 
-			doc.setFontSize(17)
+			doc.setFontSize(15)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(60, 34, 'Monthly Attendance Report of '+scope.filter.year);
+			doc.text(65, 39, 'Monthly Attendance Report of '+scope.filter.year);
 			
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(55, 21, 'Sinapangan National High School Balaoan La Union');
 			// doc.text(305, 44, 'Total: '+scope.students.length);
 			
 			doc.setFontSize(10)
@@ -338,32 +408,33 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(15)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(90, 15, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
-			doc.text(90, 27, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
+			doc.text(172, 15, 'DEPED');
+			doc.text(170, 21, 'Region 1');
+			doc.text(158, 27, 'Division of La Union');
+			doc.text(145, 33, 'Sinapangan National High School');
 			console.log(scope);
-			
-			doc.setFontSize(18)
-			doc.setFont('Arial');
-			doc.setFontType('normal');
-			doc.text(126, 34, 'Monthly Attendance Report of '+scope.filter.year);
 			
 			doc.setFontSize(15)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(165, 40, ' '+scope.filter.month.description);
+			doc.text(142, 39, 'Monthly Attendance Report of '+scope.filter.year);
+			
+			doc.setFontSize(15)
+			doc.setFont('Arial');
+			doc.setFontType('normal');
+			doc.text(170, 45, ' '+scope.filter.month.description);
 			
 			console.log(scope);
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(123, 21, 'Sinapangan National High School Balaoan La Union');
-			doc.text(305, 44, 'Total: '+scope.students.length);
+			doc.text(305, 49, 'Total: '+scope.students.length);
 			
 			doc.setFontSize(10)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
 			
-			doc.text(3, 44, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
+			doc.text(3, 49, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
 			
 			var header = ["No","ID Number","RFID No.","Name","Address","Year & Sections","Date Added"];
 			
@@ -387,7 +458,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.autoTable(header, rows,{
 				theme: 'striped',
 				margin: {
-					top: 45, 
+					top: 50, 
 					left: 3 
 				},
 				tableWidth: 500,

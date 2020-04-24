@@ -8,6 +8,10 @@ session_start();
 
 $con = new pdo_db();
 
+$cour_id = isset($_POST['course']['cour_id'])?$_POST['course']['cour_id']:"";
+$year_id = isset($_POST['grade']['year_id'])?$_POST['grade']['year_id']:"";
+$sect_id = isset($_POST['section']['sect_id'])?$_POST['section']['sect_id']:"";
+
 $where = "";
 
 if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
@@ -22,7 +26,22 @@ if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
 
 };
 
-$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students".$where);
+if($cour_id==!""&&$year_id==!""&&$sect_id==!"") {
+	
+	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (date_added LIKE $year_month AND f_cour_id = '$cour_id') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+
+} else if ($cour_id==!""&&$year_id==!""&&$sect_id=="")  {
+	
+	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (stud_year_id = '$year_id' AND f_cour_id = '$cour_id') AND date_added LIKE $year_month");
+
+}else if ($cour_id==!""&&$year_id==""&&$sect_id==""){
+
+	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE f_cour_id = '$cour_id' AND date_added LIKE $year_month");
+
+} else {
+	
+	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE date_added LIKE $year_month");
+}
 
 foreach($students as $key => $s){
 		

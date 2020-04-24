@@ -9,11 +9,43 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
 	
 			scope.filter = {
-				pickDate: new Date(),
+				from: new Date((m+1)+'/1/'+y),
+				to: new Date(),
+				name: "",
 				course: "",
+				section: "",
 				year: ""
 			};
-
+			
+		};
+		
+		function sections(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/sections.php'
+			}).then(function mySucces(response) {
+				
+				scope.sections = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function data_stud(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/students.php'
+			}).then(function mySucces(response) {
+				
+				scope.data_stud = response.data;
+				
+			},function myError(response) {
+				//error
+			});
 			
 		};
 		
@@ -53,6 +85,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			courses(scope);
 			years(scope);
+			data_stud(scope);
 			
 			$http({
 				method: 'POST',
@@ -60,7 +93,9 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				data: scope.filter
 			}).then(function mySucces(response) {
 				
-				scope.students = response.data;
+				scope.logs = response.data;
+				
+				console.log(scope);
 				
 				bui.hide();
 				
@@ -71,6 +106,21 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			});
 			
 			console.log(scope);
+			
+		};
+		
+		self.checkYear = function(scope,year) {
+			
+			scope.sections = scope.filter.year.sections;
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/reports/check-year.php'
+			}).then(function mySucces(response) {
+				
+			}, function myError(response) {
+				
+			});
 			
 		};
 		
@@ -151,14 +201,16 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(15)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(90, 15, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
-			doc.text(90, 27, 'RFID-Based Learners Attendance Monitoring System with SMS Notification');
+			doc.text(172, 15, 'DEPED');
+			doc.text(170, 21, 'Region 1');
+			doc.text(158, 27, 'Division of La Union');
+			doc.text(145, 33, 'Sinapangan National High School');
 			console.log(scope);
 			
-			doc.setFontSize(18)
+			doc.setFontSize(16)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(125, 34, 'Daily Attendance of '+months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear());
+			doc.text(140, 39, 'Daily Attendance of '+months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear());
 			
 			doc.setFontSize(15)
 			doc.setFont('Arial');
@@ -168,7 +220,6 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(123, 21, 'Sinapangan National High School Balaoan La Union');
 			doc.text(192, 49, 'AM');
 			doc.text(296, 49, 'PM');
 			
