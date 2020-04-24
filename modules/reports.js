@@ -210,7 +210,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(16)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(140, 39, 'Daily Attendance of '+months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear());
+			doc.text(140, 39, '');
 			
 			doc.setFontSize(15)
 			doc.setFont('Arial');
@@ -220,8 +220,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			doc.setFontSize(13)
 			doc.setFont('Arial');
 			doc.setFontType('normal');
-			doc.text(192, 49, 'AM');
-			doc.text(296, 49, 'PM');
+			doc.text(156, 49, 'AM');
+			doc.text(247, 49, 'PM');
 			
 			doc.setFontSize(10)
 			doc.setFont('Arial');
@@ -229,7 +229,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			doc.text(3, 44, 'Date & Time: '+ months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' | '+formatAMPM(new Date));
 			
-			var header = ["No","Names","In","Out","In","Out"];
+			console.log(scope.datas);
+			var header = ["No","Names","In","Out","In","Out","Date"];
 			
 			var rows = [];
 			
@@ -237,11 +238,12 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 				var row = [];
 				row.push(key+1);
-				row.push(data.fullname);
-				row.push(data.logs[0].time_in_out);
-				row.push(data.logs[1].time_in_out);
-				row.push(data.logs[2].time_in_out);
-				row.push(data.logs[3].time_in_out);
+				row.push(data.stud_id.fullname);
+				row.push(data.stud_id.attendance[0].time_in_out);
+				row.push(data.stud_id.attendance[1].time_in_out);
+				row.push(data.stud_id.attendance[2].time_in_out);
+				row.push(data.stud_id.attendance[3].time_in_out);
+				row.push(data.date_label);
 
 				rows.push(row);
 
@@ -263,11 +265,12 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				},
 				columnStyles: {
 					0: {columnWidth: 20}, // 
-					1: {columnWidth: 120}, //
-					2: {columnWidth: 52}, // 
-					3: {columnWidth: 52}, //
-					4: {columnWidth: 52}, //
-					5: {columnWidth: 52}, //
+					1: {columnWidth: 90}, //
+					2: {columnWidth: 46}, // 
+					3: {columnWidth: 46}, //
+					4: {columnWidth: 46}, //
+					5: {columnWidth: 46}, //
+					6: {columnWidth: 52}, //
 				},
 				headerStyles: {
 					halign: 'center',
