@@ -20,17 +20,16 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			scope.students = []; // list
 			
-			$http({
-				method: 'POST',
-				url: 'api/suggestions/ys.php'
-			}).then(function mySucces(response) {
-				
-				scope.years = response.data;
-				scope.sections = [];	
-				
-			},function myError(response) {
-					
-			});	
+			var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
+	
+			scope.filter = {
+				from: new Date((m+1)+'/1/'+y),
+				to: new Date(),
+				name: "",
+				course: "",
+				section: "",
+				year: ""
+			};
 			
 		};
 		
@@ -50,20 +49,78 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 		};
 		
+		function sections(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/sections.php'
+			}).then(function mySucces(response) {
+				
+				scope.sections = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function data_stud(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/students.php'
+			}).then(function mySucces(response) {
+				
+				scope.data_stud = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
 		function courses(scope) {
 			
 			$http({
-			  method: 'POST',
-			  url: 'api/suggestions/courses.php'
-			}).then(function mySuccess(response) {
+				method: 'POST',
+				url: 'api/suggestions/courses.php'
+			}).then(function mySucces(response) {
 				
-				scope.courses = angular.copy(response.data);
+				scope.courses = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function years(scope){
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/ys.php'
+			}).then(function mySucces(response) {
+				
+				scope.years = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		self.checkGrade = function(scope,year) {
+			
+			scope.sections = scope.filter.year.sections;
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/reports/check-year.php'
+			}).then(function mySucces(response) {
 				
 			}, function myError(response) {
 				
-				// error
-				
-			});				
+			});
 			
 		};
 		
@@ -90,13 +147,17 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			scope.controls.add.btn = false;
 			scope.controls.edit.label = "Edit";
+			
+			courses(scope);
+			years(scope);
+			data_stud(scope);
 
 			if (scope.$id > 2) scope = scope.$parent;
 
 			$http({
 			  method: 'POST',
 			  url: 'handlers/students/list.php',
-			  data: scope.students
+			  data: scope.filter
 			}).then(function mySucces(response) {
 				
 				scope.students = angular.copy(response.data);
@@ -111,7 +172,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			$('#content').load('lists/students.html', function() {
 				$timeout(function() { $compile($('#content')[0])(scope); },100);								
-				// instantiate datable
+				/* // instantiate datable
 				$timeout(function() {
 					$('#studentsTable').DataTable({
 					  "paging": true,
@@ -121,7 +182,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 					  "info": true,
 					  "autoWidth": true,
 					});
-				},200);
+				},200); */
 
 			});	
 			

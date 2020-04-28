@@ -1,3 +1,51 @@
+<div class="content-header">
+  <div class="container-fluid">
+	<div class="row">
+				<div class="col-sm-4">
+					<label>From</label>
+					<div class="form-group input-group">
+					  <input type="date" class="form-control" ng-model="filter.from">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<label>To</label>
+					<div class="form-group input-group">
+					  <input type="date" class="form-control" ng-model="filter.to">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Names</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.name" ng-options="d.fullname for d in data_stud track by d.stud_id"></select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<label>Strands</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<label>Grade Level</label>
+					<div class="form-group">
+					 <select class="form-control" ng-model="filter.year" ng-options="y.year_description for y in years track by y.year_id" ng-change="app.checkGrade(this,filter.year)"></select>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<label>Sections</label>
+					<div class="input-group form-group">
+						<select class="form-control" ng-model="filter.section" ng-options="s.sect_description for s in sections track by s.sect_id"></select>
+					  <span class="input-group-append">
+						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
+					  </span>
+					</div>
+				</div>
+			</div><!-- /.row -->
+	</div>
+</div>
+
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="card card-secondary">

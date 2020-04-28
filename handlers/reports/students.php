@@ -73,7 +73,7 @@ foreach($students as $key => $s){
 };
  */
 
-if($stud_id==!"") {
+if($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!"") {
 	
 	$logs = $con->getData("SELECT DISTINCT date(logb_login) date_only, logged_book.stud_id, DATE_FORMAT(logb_login, '%M %d, %Y') date_label, students.f_cour_id, students.stud_year_id, students.stud_sect_id, students.stud_id FROM logged_book LEFT JOIN students ON students.stud_id = logged_book.stud_id WHERE (logb_login BETWEEN '$from' AND '$to') AND logged_book.stud_id = '$stud_id'");
 
@@ -89,6 +89,14 @@ if($stud_id==!"") {
 else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id=="") {
 	
 	$logs = $con->getData("SELECT DISTINCT date(logb_login) date_only, logged_book.stud_id, DATE_FORMAT(logb_login, '%M %d, %Y') date_label, students.f_cour_id, students.stud_year_id, students.stud_sect_id, students.stud_id FROM logged_book LEFT JOIN students ON students.stud_id = logged_book.stud_id WHERE (logb_login BETWEEN '$from' AND '$to') AND f_cour_id = '$cour_id'");
+	
+}else if ($cour_id==""&&$year_id==!""&&$sect_id==!""&&$stud_id=="") {
+	
+	$logs = $con->getData("SELECT DISTINCT date(logb_login) date_only, logged_book.stud_id, DATE_FORMAT(logb_login, '%M %d, %Y') date_label, students.f_cour_id, students.stud_year_id, students.stud_sect_id, students.stud_id FROM logged_book LEFT JOIN students ON students.stud_id = logged_book.stud_id WHERE (logb_login BETWEEN '$from' AND '$to') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+	
+} else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id=="") {
+	
+	$logs = $con->getData("SELECT DISTINCT date(logb_login) date_only, logged_book.stud_id, DATE_FORMAT(logb_login, '%M %d, %Y') date_label, students.f_cour_id, students.stud_year_id, students.stud_sect_id, students.stud_id FROM logged_book LEFT JOIN students ON students.stud_id = logged_book.stud_id WHERE (logb_login BETWEEN '$from' AND '$to') AND stud_year_id = '$year_id'");
 	
 } else {
 	
@@ -108,18 +116,45 @@ foreach($logs as $key => $log){
 		$id = $s['stud_id'];
 		$date_ = $log['date_only'];
 		
-		$attendance = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out FROM logged_book WHERE date(logb_login) = '$date_' AND stud_id = ".$s['stud_id']);
+		$timein7am9am = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out, HOUR(logb_login) oras FROM logged_book WHERE (date(logb_login) = '$date_' AND stud_id = '$id') AND HOUR(logb_login) IN(7,8,9) GROUP BY oras");
 		
-		if(empty($attendance)){
-			$attendance = array(
+		$timeout10am12am = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out, HOUR(logb_login) oras FROM logged_book WHERE (date(logb_login) = '$date_' AND stud_id = '$id') AND HOUR(logb_login) IN(10,11) GROUP BY oras");
+		
+		$timein12am2am = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out, HOUR(logb_login) oras FROM logged_book WHERE (date(logb_login) = '$date_' AND stud_id = '$id') AND HOUR(logb_login) IN(12,13,14) GROUP BY oras");
+		
+		$timein3am6am = $con->getData("SELECT *, DATE_FORMAT(logb_login, '%l:%i') time_in_out, HOUR(logb_login) oras FROM logged_book WHERE (date(logb_login) = '$date_' AND stud_id = '$id') AND HOUR(logb_login) IN(15,16,17,18,19,20,21,22) GROUP BY oras");
+		
+		// var_dump($timeout10am12am); exit();
+		if(empty($timein7am9am)){
+			$timein7am9am = array(
 				0=> array("time_in_out"=>"No time in/out"),
-				1=> array("time_in_out"=>"No time in/out"),
-				2=> array("time_in_out"=>"No time in/out"),
-				3=>array("time_in_out"=>"No time in/out")
 			);
 		}
 		
-		$students[$index]['attendance'] = $attendance;
+		if(empty($timeout10am12am)){
+			$timeout10am12am = array(
+				0=> array("time_in_out"=>"No time in/out"),
+			);
+		}
+		
+		if(empty($timein12am2am)){
+			$timein12am2am = array(
+				0=> array("time_in_out"=>"No time in/out"),
+			);
+		}
+		
+		if(empty($timein3am6am)){
+			$timein3am6am = array(
+				0=> array("time_in_out"=>"No time in/out"),
+			);
+		}
+		
+		$students[$index]['attendance'] = array(
+			0=>$timein7am9am[0],
+			1=>$timeout10am12am[0],
+			2=>$timein12am2am[0],
+			3=>$timein3am6am[0],
+		);
 
 	};
 	
