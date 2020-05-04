@@ -27,35 +27,52 @@
 </style>
 <body ng-app="reports" ng-controller="reportsCtrl" account-profile>
 	<div class="row">
-				<div class="col-sm-2">
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <div class="form-group">
 					<label>Year</label>
-					<div class="form-group input-group">
-					  <input type="text" class="form-control" ng-model="filter.year">
-					</div>
+					<input type="text" class="form-control" ng-model="filter.year">
+				  </div>
 				</div>
-				<div class="col-sm-2">
-					<label>Month</label>
-					<div class="form-group input-group">
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <label>Month</label>
+				  <div class="form-group">
 					  <select class="form-control" ng-model="filter.month" ng-options="month.description for month in months track by month.month"></select>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
+					<label>Names</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.name" ng-options="d.fullname for d in data_stud track by d.stud_id"></select>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="row">
+				<div class="col-sm-4">
 					<label>Strands</label>
 					<div class="form-group">
 					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
 					</div>
 				</div>
-				<div class="col-sm-2">
-					<label>Learners Year</label>
+				<div class="col-sm-3">
+					<label>Grade Level</label>
+					<div class="form-group">
+					 <select class="form-control" ng-model="filter.grade" ng-options="y.year_description for y in years track by y.year_id" ng-change="app.checkYear(this,filter.grade)"></select>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label>Sections</label>
 					<div class="input-group form-group">
-					  <select class="form-control" ng-model="filter.selectyear" ng-options="y.year_description for y in years track by y.year_id"></select>
+						<select class="form-control" ng-model="filter.section" ng-options="s.sect_description for s in sections track by s.sect_id"></select>
 					  <span class="input-group-append">
 						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
 					  </span>
 					</div>
 				</div>
 				<div class="col-sm-2">
-					<button class="btn btn-success" onclick="window.print()" style="margin-top: 13%;">Print</button>
+					<a  class="btn btn-danger" href="monthly-report.html" style="margin-top: 15%;">Back</a>
+					<button class="btn btn-success" onclick="window.print()" style="margin-top: 15%;"><i class="fa fa-print"></i> Print</button>
 				</div>
 			</div><!-- /.row -->
 	<table class="table table-bordered table-striped">

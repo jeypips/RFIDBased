@@ -4,10 +4,10 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 	
 		var self = this;
 		
-		self.data = function(scope) { // initialize data			
-			
-			var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
-	
+		self.data = function(scope) { // initialize data	
+		
+			var d = new Date();
+
 			scope.months = [
 				{month:"01",description:"January"},
 				{month:"02",description:"February"},
@@ -23,12 +23,13 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				{month:"12",description:"December"}
 			];
 
-
 			scope.filter = {
-				year: date.getFullYear(),
+				year: d.getFullYear(),
 				month: scope.months[0],
-				course:"",
-				selectyear:""
+				course: "",
+				section: "",
+				grade: "",
+				name:""
 			};
 			
 			
@@ -48,6 +49,21 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			}).then(function mySucces(response) {
 				
 				scope.courses = response.data;
+				
+			},function myError(response) {
+				//error
+			});
+			
+		};
+		
+		function data_stud(scope) {
+			
+			$http({
+				method: 'POST',
+				url: 'api/suggestions/students.php'
+			}).then(function mySucces(response) {
+				
+				scope.data_stud = response.data;
 				
 			},function myError(response) {
 				//error
@@ -76,6 +92,7 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			
 			courses(scope);
 			years(scope);
+			data_stud(scope);
 			
 			$http({
 				method: 'POST',

@@ -17,7 +17,9 @@ $pickmonth = $_POST['month']['month'];
 // var_dump($newDate); exit();
 
 $cour_id = isset($_POST['course']['cour_id'])?$_POST['course']['cour_id']:"";
-$year_id = isset($_POST['selectyear']['year_id'])?$_POST['selectyear']['year_id']:"";
+$year_id = isset($_POST['grade']['year_id'])?$_POST['grade']['year_id']:"";
+$sect_id = isset($_POST['section']['sect_id'])?$_POST['section']['sect_id']:"";
+$stud_id = isset($_POST['name']['stud_id'])?$_POST['name']['stud_id']:"";
 
 $workdays = array();
 $days = array();
@@ -41,31 +43,49 @@ for ($i = 1; $i <= $day_count; $i++) {
 
 }
 
-if($cour_id==""&&$year_id==!"") {
-	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE stud_year_id = '$year_id'");
+if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
 
-} else if ($cour_id==!""&&$year_id=="")  {
-	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id'");
+	$year = ($_POST['year']=="")?"":$_POST['year'];
+	$month = $_POST['month']['month'];
 
-} else if ($cour_id==!""&&$year_id==!""){
+	$year_month = "'%$year-$month-%'";
 	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students WHERE f_cour_id = '$cour_id' AND stud_year_id = '$year_id'");
+	if ($month == "-") $year_month = "'$year-%'";
 
-} else {
-	
-	$datas = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname FROM students");
-	
+	if($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id==!"") {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND (date_added LIKE $year_month AND f_cour_id = '$cour_id') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+
+	} else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="")  {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (stud_year_id = '$year_id' AND f_cour_id = '$cour_id') AND date_added LIKE $year_month");
+
+	}else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id==""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE f_cour_id = '$cour_id' AND date_added LIKE $year_month");
+
+	}else if ($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND date_added LIKE $year_month");
+
+	} else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id==""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_year_id = '$year_id' AND date_added LIKE $year_month");
+
+	} else {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE date_added LIKE $year_month");
+	}
+
 };
 
-foreach($datas as $key => $value){
+foreach($checks as $key => $value){
 	
-	$datas[$key]['dates'] = $workdays;
+	$checks[$key]['dates'] = $workdays;
 	
 	$id = $value['stud_id'];
 	
-	foreach($datas[$key]['dates'] as $i => $v){
+	foreach($checks[$key]['dates'] as $i => $v){
 		
 		$sam = $v;
 		
@@ -85,7 +105,7 @@ foreach($datas as $key => $value){
 				
 			};
 		
-		$datas[$key]['logs'][$i] = $logs;
+		$checks[$key]['logs'][$i] = $logs;
 		
 	}
 	
@@ -94,7 +114,7 @@ foreach($datas as $key => $value){
 $students = array(
 
 	"days"=>$days,
-	"students"=>$datas
+	"students"=>$checks
 
 );
 

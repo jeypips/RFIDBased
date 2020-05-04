@@ -13,6 +13,12 @@ $year_id = isset($_POST['grade']['year_id'])?$_POST['grade']['year_id']:"";
 $sect_id = isset($_POST['section']['sect_id'])?$_POST['section']['sect_id']:"";
 $stud_id = isset($_POST['name']['stud_id'])?$_POST['name']['stud_id']:"";
 
+$pickyear = $_POST['year'];
+
+$pickmonth = "";
+if($_POST['month']['month']=="-") $pickmonth="05";
+else $pickmonth=$_POST['month']['month'];
+	
 $where = "";
 
 if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
@@ -65,67 +71,100 @@ foreach($students as $key => $s){
 	
 };
 
-/* $all_january = "";
-$all_february = "";
-$all_march = "";
-$all_april = "";
-$all_may = "";
-$all_june = "";
-$all_july = "";
-$all_august = "";
-$all_september = "";
-$all_october = "";
-$all_november = "";
-$all_december = "";
- */
- /* 
-if ((isset($_POST['year']))) {
+$workdays = array();
+$days = array();
+$type = CAL_GREGORIAN;
+// $month = date('n'); // Month ID, 1 through to 12.
+// $year = date('Y'); // Year in 4 digit 2009 format.
+$day_count = cal_days_in_month($type, $pickmonth, $pickyear); // Get the amount of days
+
+//loop through all days
+for ($i = 1; $i <= $day_count; $i++) {
+
+        $date = $pickyear.'-'.$pickmonth.'-0'.$i; //format date
+        $get_name = date('l', strtotime($date)); //get week day
+        $day_name = substr($get_name, 0, 3); // Trim day name to 3 chars
+		
+        //if not a weekend add day to array
+        if($day_name != 'Sun' && $day_name != 'Sat'){
+            $workdays[] = $date;
+            $days[] = $i;
+        }
+
+}
+
+if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
 
 	$year = ($_POST['year']=="")?"":$_POST['year'];
+	$month = $_POST['month']['month'];
+
+	$year_month = "'%$year-$month-%'";
 	
-	$january = "'%$year-01-%'";
-	$february = "'%$year-02-%'";
-	$march = "'%$year-03-%'";
-	$april = "'%$year-04-%'";
-	$may = "'%$year-05-%'";
-	$june = "'%$year-06-%'";
-	$july = "'%$year-07-%'";
-	$august = "'%$year-08-%'";
-	$september = "'%$year-09-%'";
-	$october = "'%$year-10-%'";
-	$november = "'%$year-11-%'";
-	$december = "'%$year-12-%'";
+	if ($month == "-") $year_month = "'$year-%'";
+
+	if($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id==!"") {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND (date_added LIKE $year_month AND f_cour_id = '$cour_id') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+
+	} else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="")  {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (stud_year_id = '$year_id' AND f_cour_id = '$cour_id') AND date_added LIKE $year_month");
+
+	}else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id==""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE f_cour_id = '$cour_id' AND date_added LIKE $year_month");
+
+	}else if ($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND date_added LIKE $year_month");
+
+	} else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id==""){
+
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_year_id = '$year_id' AND date_added LIKE $year_month");
+
+	} else {
+		
+		$checks = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE date_added LIKE $year_month");
+	}
+
+};
+
+foreach($checks as $key => $value){
 	
-	$total_january = " WHERE logb_login LIKE $january";
-	$total_february = " WHERE logb_login LIKE $february";
-	$total_march = " WHERE logb_login LIKE $march";
-	$total_april = " WHERE logb_login LIKE $april";
-	$total_may = " WHERE logb_login LIKE $may";
-	$total_june = " WHERE logb_login LIKE $june";
-	$total_july = " WHERE logb_login LIKE $july";
-	$total_august = " WHERE logb_login LIKE $august";
-	$total_september = " WHERE logb_login LIKE $september";
-	$total_october = " WHERE logb_login LIKE $october";
-	$total_november = " WHERE logb_login LIKE $november";
-	$total_december = " WHERE logb_login LIKE $december";
+	$checks[$key]['dates'] = $workdays;
+	
+	$id = $value['stud_id'];
+	
+	foreach($checks[$key]['dates'] as $i => $v){
+		
+		$sam = $v;
+		
+		$logs = $con->getData("SELECT DISTINCT DATE_FORMAT(logb_login, '%Y-%m-%d') logb_login FROM logged_book WHERE stud_id = '$id' AND date(logb_login) = '$sam'");
+		
+			foreach($logs as $index => $val){
+				
+				if($logs[$index]==[]) {
+					
+					$logs[$index]['checked'] = "";
+					
+				} else {
+					
+					$logs[$index]['checked'] = "fa fa-check text-success";
+					
+				}
+				
+			};
+		
+		$checks[$key]['logs'][$i] = $logs;
+		
+	}
 	
 };
 
-$data_january = $con->getData("SELECT logb_login FROM logged_book".$total_january);
-$data_february = $con->getData("SELECT logb_login FROM logged_book".$total_february);
-$data_march = $con->getData("SELECT logb_login FROM logged_book".$total_march);
-$data_april = $con->getData("SELECT logb_login FROM logged_book".$total_april);
-$data_may = $con->getData("SELECT logb_login FROM logged_book".$total_may);
-$data_june = $con->getData("SELECT logb_login FROM logged_book".$total_june);
-$data_july = $con->getData("SELECT logb_login FROM logged_book".$total_july);
-$data_august = $con->getData("SELECT logb_login FROM logged_book".$total_august);
-$data_september = $con->getData("SELECT logb_login FROM logged_book".$total_september);
-$data_october = $con->getData("SELECT logb_login FROM logged_book".$total_october);
-$data_november = $con->getData("SELECT logb_login FROM logged_book".$total_november);
-$data_december = $con->getData("SELECT logb_login FROM logged_book".$total_december);
- */
 $data = array(
 	"students"=>$students,
+	"days"=>$days,
+	"checks"=>$checks
 	/* "total"=> array(
 		"january"=>$data_january,
 		"february"=>$data_february,

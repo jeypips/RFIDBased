@@ -1,4 +1,4 @@
-angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','bootstrap-growl','block-ui']).factory('app', function($compile,$timeout,$http,bootstrapModal,growl,bui,validate) {
+angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','bootstrap-growl','block-ui','window-open-post']).factory('app', function($compile,$timeout,$http,bootstrapModal,growl,bui,validate,printPost) {
 	
 	function app() {
 		
@@ -38,7 +38,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				month: scope.months[0],
 				course: "",
 				section: "",
-				grade: ""
+				grade: "",
+				name:""
 			};
 			
 		};
@@ -149,6 +150,12 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 				},200);
 
 			});	
+			
+		};
+		
+		self.export = function(scope) {
+			
+			printPost.show('export.html',scope.filter);
 			
 		};
 		

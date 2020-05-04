@@ -244,6 +244,40 @@
 		  </div><!-- /.container-fluid -->
 		</div>
 		<div id="content"></div> <!-- display -->
+		
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="card card-secondary">
+					<div class="card-header">
+						<h3 class="card-title">Learners</h3>
+						<div class="card-tools">
+						 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.export(this)"> <i class="fa fa-print"></i> Go to Print</button>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Names</th>
+								<th ng-repeat="d in data.days">{{d}}</th>
+								<!-- <th><i class="fa fa-check"></i></th> -->
+							</tr>
+						</thead>
+						<!-- <!-- <tbody> -->
+							<tr ng-repeat="s in data.checks">
+							  <td>{{s.fullname}}</td>
+							  
+							  <td ng-repeat="sl in s.logs"><i class="{{sl[0].checked}}"></i></td>
+							</tr>
+						</tbody> 
+					  </table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			<!-- /.card -->
+		  </div><!-- /.container-fluid -->
+		</section>
 		<!-- /.content -->
 		<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
 			<i class="fas fa-chevron-up"></i>
