@@ -24,32 +24,36 @@ if ( (isset($_POST['year'])) && (isset($_POST['month'])) ) {
 	
 	if ($month == "-") $year_month = "'$year-%'";
 
-	$w = " WHERE logb_login LIKE $year_month";
+	// $w = " WHERE logb_login LIKE $year_month";
+	
+	if($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id==!"") {
+		
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND (date_added LIKE $year_month AND f_cour_id = '$cour_id') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+
+	} else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="")  {
+		
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (stud_year_id = '$year_id' AND f_cour_id = '$cour_id') AND date_added LIKE $year_month");
+
+	}else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id==""){
+
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE f_cour_id = '$cour_id' AND date_added LIKE $year_month");
+
+	}else if ($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!""){
+
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND date_added LIKE $year_month");
+
+	} else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id==""){
+
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_year_id = '$year_id' AND date_added LIKE $year_month");
+
+	} else {
+		
+		$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE date_added LIKE $year_month");
+	}
 
 };
 
-if($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id==!"") {
-	
-	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND (date_added LIKE $year_month AND f_cour_id = '$cour_id') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
-
-} else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="")  {
-	
-	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE (stud_year_id = '$year_id' AND f_cour_id = '$cour_id') AND date_added LIKE $year_month");
-
-}else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id==""){
-
-	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE f_cour_id = '$cour_id' AND date_added LIKE $year_month");
-
-}else if ($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!""){
-
-	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE stud_id = '$stud_id' AND date_added LIKE $year_month");
-
-} else {
-	
-	$students = $con->getData("SELECT *, CONCAT(stud_fName,' ',stud_lName) fullname, DATE_FORMAT(date_added, '%M %d, %Y') date_added FROM students WHERE date_added LIKE $year_month");
-}
-
-$overall = $con->getData("SELECT COUNT(*) count FROM logged_book".$w);
+// $overall = $con->getData("SELECT COUNT(*) count FROM logged_book".$w);
 
 foreach($students as $key => $s){
 		
@@ -61,7 +65,7 @@ foreach($students as $key => $s){
 	
 };
 
-$all_january = "";
+/* $all_january = "";
 $all_february = "";
 $all_march = "";
 $all_april = "";
@@ -73,7 +77,8 @@ $all_september = "";
 $all_october = "";
 $all_november = "";
 $all_december = "";
-
+ */
+ /* 
 if ((isset($_POST['year']))) {
 
 	$year = ($_POST['year']=="")?"":$_POST['year'];
@@ -118,10 +123,10 @@ $data_september = $con->getData("SELECT logb_login FROM logged_book".$total_sept
 $data_october = $con->getData("SELECT logb_login FROM logged_book".$total_october);
 $data_november = $con->getData("SELECT logb_login FROM logged_book".$total_november);
 $data_december = $con->getData("SELECT logb_login FROM logged_book".$total_december);
-
+ */
 $data = array(
 	"students"=>$students,
-	"total"=> array(
+	/* "total"=> array(
 		"january"=>$data_january,
 		"february"=>$data_february,
 		"march"=>$data_march,
@@ -135,7 +140,7 @@ $data = array(
 		"november"=>$data_november,
 		"december"=>$data_december,
 		"overall"=>$overall[0]
-	)
+	) */
 );
 
 header("Content-Type: application/json");
