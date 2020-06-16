@@ -1,0 +1,39 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-danger">
+			<div class="card-header">
+				<h3 class="card-title">Archived</h3>
+				<div class="card-tools">
+				  <input class="form-control" placeholder="Search" ng-model="search">
+				</div>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="studentsTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>RFID #</th>
+						<th>Name</th>
+						<th>Strand</th>
+						<th>Year & Section</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in students | filter:search">
+					  <td>{{data.stud_RFID}}</td>
+					  <td>{{data.fullname}}</td>
+					  <td>{{data.f_cour_id.cour_description}}</td>
+					  <td>{{data.stud_year_id.year_description}} - {{data.stud_sect_id.sect_description}}</td>
+					  <td>
+						<button class="btn btn-primary btn-sm" ng-click="app.student(this,data)"><i class="fas fa-search"></i> View</button>
+					  </td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>

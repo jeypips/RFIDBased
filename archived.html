@@ -25,7 +25,7 @@
 	visibility: hidden;
 }
 </style>
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse" ng-app="reports" ng-controller="reportsCtrl" account-profile>
+<body class="hold-transition sidebar-mini layout-fixed" ng-app="archived" ng-controller="archivedCtrl" account-profile>
 <div class="wrapper">
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -112,8 +112,8 @@
 				  </p>
 				</a>
 			</li>
-			<li class="nav-item has-treeview menu-open">
-				<a href="#" class="nav-link active">
+			<li class="nav-item has-treeview">
+				<a href="#" class="nav-link">
 				  <i class="nav-icon fas fa-book"></i>
 				  <p>
 					Reports
@@ -122,7 +122,7 @@
 				</a>
 				<ul class="nav nav-treeview">
 				  <li class="nav-item">
-					<a href="reports.html" class="nav-link active">
+					<a href="reports.html" class="nav-link">
 					  <i class="fa fa-file nav-icon"></i>
 					  <p>Daily Report</p>
 					</a>
@@ -172,8 +172,8 @@
 				  </p>
 				</a>
 			</li>
-			<li class="nav-item" ng-hide="accountProfile.groups=='Teacher'">
-				<a href="archived.html" class="nav-link" style="border: .5px solid red; color: white;">
+			<li class="nav-item active" ng-hide="accountProfile.groups=='Teacher'">
+				<a href="tap.html" class="nav-link active" style="border: .5px solid red; color: white;">
 				  <i class="nav-icon fa fa-trash text-danger"></i>
 				  <p>
 					Archived
@@ -189,105 +189,20 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-4">
-					<label>From</label>
-					<div class="form-group input-group">
-					  <input type="date" class="form-control" ng-model="filter.from">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<label>To</label>
-					<div class="form-group input-group">
-					  <input type="date" class="form-control" ng-model="filter.to">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					<label>Names</label>
-					<div class="form-group">
-					  <select class="form-control" ng-model="filter.name" ng-options="d.fullname for d in data_stud track by d.stud_id"></select>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<label>Strands</label>
-					<div class="form-group">
-					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<label>Grade Level</label>
-					<div class="form-group">
-					 <select class="form-control" ng-model="filter.year" ng-options="y.year_description for y in years track by y.year_id" ng-change="app.checkYear(this,filter.year)"></select>
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<label>Sections</label>
-					<div class="input-group form-group">
-						<select class="form-control" ng-model="filter.section" ng-options="s.sect_description for s in sections track by s.sect_id"></select>
-					  <span class="input-group-append">
-						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
-					  </span>
-					</div>
-				</div>
-			</div><!-- /.row -->
-			<div class="card card-secondary">
-				<div class="card-header">
-					<h3 class="card-title">Learners</h3>
-					<div class="card-tools">
-					 <button class="btn btn-success float-sm-right btn-sm" ng-click="app.print_s(this)"> <i class="fa fa-print"></i> Print Report</button>
-					</div>
-				</div>
-				<!-- /.card-header -->
-				<div class="card-body">
-					<table class="table table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th colspan="2" style="text-align: center;">AM</th>
-							<th colspan="2" style="text-align: center;">PM</th>
-							<th>&nbsp;</th>
-						</tr>
-						<tr>
-							<th>No.</th>
-							<th>Names</th>
-							
-							<th>In</th> <!-- AM -->
-							<th>Out</th>
-							
-							<th>In</th> <!-- PM -->
-							<th>Out</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="l in logs">
-						  <td>{{$index+1}}</td>
-						  <td>{{l.stud_id.fullname}}</td>
-						  
-						  <td ng-repeat="s in l.stud_id.attendance">{{s.time_in_out}}</td>
-						   <td>{{l.date_label}}</td>
-						</tr>
-					</tbody>
-				  </table>
-				</div>
-				<!-- /.card-body -->
-			</div>
-		<!-- /.card -->
-	  </div><!-- /.container-fluid -->
-	</section>
+   
+	  <div id="content"></div> <!-- display -->
+	  
+    </section>
     <!-- /.content -->
+	
 	<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>
     </a>
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer text-center">
-    <strong>Copyright  @ 2020 Sinapangan  National  High  School  Monitoring  System using  RFID developed  by  College  of Information System  DMMMMSU -NLUC.</strong> All rights  reserved.
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2020 Sinapangan National High School Monitoring System using RFID.</strong>
+    All rights reserved.
   </footer>
   	
 </div>
@@ -333,8 +248,8 @@
 <script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
 <script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
 <script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
-<script src="modules/reports.js"></script>
-<script src="controllers/reports.js"></script>
+<script src="modules/archived.js"></script>
+<script src="controllers/archived.js"></script>
 
 </body>
 </html>

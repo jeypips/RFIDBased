@@ -18,7 +18,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="plugins/css/font.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <style>
 .hide{
@@ -123,25 +123,13 @@
 				<ul class="nav nav-treeview">
 				  <li class="nav-item">
 					<a href="reports.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
+					  <i class="far fa-file nav-icon"></i>
 					  <p>Daily Report</p>
 					</a>
 				  </li>
-				<!--  <li class="nav-item">
-					<a href="months.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
-					  <p>Monthly Attendance Report</p>
-					</a>
-				  </li>
-				  <li class="nav-item">
-					<a href="daily-records.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
-					  <p>Daily Attendance Records</p>
-					</a>
-				  </li> -->
 				  <li class="nav-item">
 					<a href="monthly-report.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
+					  <i class="far fa-file nav-icon"></i>
 					  <p>Monthly Report</p>
 					</a>
 				  </li>
@@ -158,19 +146,19 @@
 				<ul class="nav nav-treeview">
 				  <li class="nav-item" ng-hide="accountProfile.groups=='Teacher'">
 					<a href="users.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
+					  <i class="fa fa-users nav-icon"></i>
 					  <p>Users</p>
 					</a>
 				  </li>
 				  <li class="nav-item">
 					<a href="courses.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
+					  <i class="fa fa-list-ul nav-icon"></i>
 					  <p>Strand</p>
 					</a>
 				  </li>
 				  <li class="nav-item">
 					<a href="ys.html" class="nav-link">
-					  <i class="far fa-circle nav-icon"></i>
+					  <i class="fa fa-list-ul nav-icon"></i>
 					  <p>Year & Section</p>
 					</a>
 				  </li>
@@ -181,6 +169,14 @@
 				  <i class="nav-icon fas fa-id-card"></i>
 				  <p>
 					Login
+				  </p>
+				</a>
+			</li>
+			<li class="nav-item" ng-hide="accountProfile.groups=='Teacher'">
+				<a href="archived.html" class="nav-link" style="border: .5px solid red; color: white;">
+				  <i class="nav-icon fa fa-trash text-danger"></i>
+				  <p>
+					Archived
 				  </p>
 				</a>
 			</li>
