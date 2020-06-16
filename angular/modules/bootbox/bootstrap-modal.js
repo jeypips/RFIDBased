@@ -7,11 +7,11 @@ angular.module('bootstrap-modal',[]).service('bootstrapModal', function($compile
 			message: content,
 			buttons: {
 				cancel: {
-					label: 'Close',
+					label: 'No',
 					className: 'btn-danger move-right'
 				},
 				confirm: {
-					label: 'Ok',
+					label: 'Yes',
 					className: 'btn-success'
 				}
 			},

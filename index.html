@@ -55,7 +55,6 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link" data-toggle="dropdown" href="#">
 				  <i class="far fa-user"></i>
-				  <span class="badge badge-danger navbar-badge">2</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 					<span class="dropdown-item dropdown-header">Signed in as {{accountProfile.groups}}</span>
@@ -166,12 +165,12 @@
 				<a href="#" class="nav-link">
 				  <i class="nav-icon fas fa-cogs"></i>
 				  <p>
-					Maintenance
+					Settings
 					<i class="right fas fa-angle-left"></i>
 				  </p>
 				</a>
 				<ul class="nav nav-treeview">
-				  <li class="nav-item">
+				  <li class="nav-item" ng-hide="accountProfile.groups=='Teacher'">
 					<a href="users.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Users</p>
@@ -223,13 +222,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row" ng-hide="accountProfile.groups=='Teacher'">
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{dashboard.no_students}}</h3>
-                <p>Students</p>
+                <p>Learners</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
@@ -244,7 +243,7 @@
               <div class="inner">
                 <h3>{{dashboard.no_logged_book}}</h3>
 
-                <p>Logged Book</p>
+                <p>Log Book</p>
               </div>
               <div class="icon">
                 <i class="fa fa-book"></i>
@@ -262,7 +261,7 @@
                 <p>Users</p>
               </div>
               <div class="icon">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-users"></i>
               </div>
               <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -277,7 +276,7 @@
                 <p>Strand</p>
               </div>
               <div class="icon">
-                <i class="fa fa-file"></i>
+                <i class="fa fa-list"></i>
               </div>
               <a href="students.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -321,7 +320,7 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<h6>Total: {{total}}</h6>
+						<h6>No. of Learners: {{total}}</h6>
 						<div class="chart">
 						  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 						</div>
@@ -341,8 +340,8 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID.</strong> All rights reserved.
+  <footer class="main-footer text-center">
+    <strong>Copyright  @ 2020 Sinapangan  National  High  School  Monitoring  System using  RFID developed  by  College  of Information System  DMMMMSU -NLUC.</strong> All rights  reserved.
   </footer>
 
   <!-- Control Sidebar -->

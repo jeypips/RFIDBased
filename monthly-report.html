@@ -41,7 +41,6 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link" data-toggle="dropdown" href="#">
 				  <i class="far fa-user"></i>
-				  <span class="badge badge-danger navbar-badge">2</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 					<span class="dropdown-item dropdown-header">Signed in as {{accountProfile.groups}}</span>
@@ -152,12 +151,12 @@
 				<a href="#" class="nav-link">
 				  <i class="nav-icon fas fa-cogs"></i>
 				  <p>
-					Maintenance
+					Settings
 					<i class="right fas fa-angle-left"></i>
 				  </p>
 				</a>
 				<ul class="nav nav-treeview">
-				  <li class="nav-item">
+				  <li class="nav-item" ng-hide="accountProfile.groups=='Teacher'">
 					<a href="users.html" class="nav-link">
 					  <i class="far fa-circle nav-icon"></i>
 					  <p>Users</p>
@@ -284,9 +283,8 @@
 		</a>
 	</div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright © 2020 Sinapangan National High School Monitoring System using RFID.</strong>
-    All rights reserved.
+  <footer class="main-footer text-center">
+    <strong>Copyright  @ 2020 Sinapangan  National  High  School  Monitoring  System using  RFID developed  by  College  of Information System  DMMMMSU -NLUC.</strong> All rights  reserved.
   </footer>
   	
 </div>
