@@ -25,7 +25,7 @@ class pdo_db {
 		
 		$server = "localhost";
 		$username = "root";
-		$password = "root";
+		$password = "";
 		$db_name = "acls";
 		$dsn = "mysql:host=$server;dbname=$db_name;charset=utf8";
 
