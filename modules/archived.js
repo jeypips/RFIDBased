@@ -94,6 +94,8 @@ angular.module('app-module',['form-validator','ui.bootstrap','bootstrap-modal','
 			scope.load.photo = "pictures/avatar.png";
 			
 			mode(scope,row);
+			
+			console.log(scope);
 
 			$('#content').load('forms/archived.html',function() {
 				$timeout(function() { $compile($('#content')[0])(scope); },200);

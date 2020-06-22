@@ -20,7 +20,8 @@ if ($_POST['stud_id']) {
 	
 } else {
 	
-	$_POST['added_by'] = $_SESSION['user_id']; 
+	$_POST['added_by'] = $_SESSION['user_id'];
+	$_POST['update_by'] = $_SESSION['user_id']; 
 	$student = $con->insertObj($_POST);
 	$id = $con->insertId;
 	echo $id;
