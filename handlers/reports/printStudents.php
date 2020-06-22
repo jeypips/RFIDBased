@@ -1,8 +1,12 @@
 <?php
 
+date_default_timezone_set('Asia/Manila');
+
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 require_once '../../db.php';
+
+session_start();
 
 $con = new pdo_db();
 
@@ -160,6 +164,10 @@ foreach($datas as $key => $log){
 	
 	$datas[$key]['stud_id'] = $students[0];
 };
+
+$con->table = "logs";
+
+$log = $con->insertData(array("users_id"=>$_SESSION['user_id'],"description"=>"Print Daily Report"));
 
 header("Content-Type: application/json");
 echo json_encode($datas);

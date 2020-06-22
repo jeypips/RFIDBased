@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Asia/Manila');
+
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 require_once '../../db.php';
@@ -18,31 +20,31 @@ $stud_id = isset($_POST['name']['stud_id'])?$_POST['name']['stud_id']:"";
 
 if($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!"") { // name
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND stud_id = '$stud_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND stud_id = '$stud_id'");
 
 } else if ($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id=="") { // name null
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id') AND stud_sect_id = '$sect_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id') AND stud_sect_id = '$sect_id'");
 	
 } else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="") { // course and year
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id')");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id')");
 
 } else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id=="") { // course 
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND f_cour_id = '$cour_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND f_cour_id = '$cour_id'");
 	
 }else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id=="") { // year/grade
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND stud_year_id = '$year_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND stud_year_id = '$year_id'");
 	
 } else if ($cour_id==""&&$year_id==!""&&$sect_id==!""&&$stud_id=="") { // year and section
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE (date_added BETWEEN '$from' AND '$to') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
 	
 } else { // ALL
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added FROM students WHERE date_added BETWEEN '$from' AND '$to'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE date_added BETWEEN '$from' AND '$to'");
 	
 }
 
@@ -56,6 +58,12 @@ foreach($students as $key => $s){
 	
 	$course = $con->getData("SELECT * FROM course WHERE cour_id = ".$s['f_cour_id']);
 	$students[$key]['f_cour_id'] = $course[0];
+	
+	$added_by = $con->getData("SELECT user_id, name FROM users WHERE user_id = ".$s['added_by']);
+	$students[$key]['added_by'] = $added_by[0];
+	
+	$update_by = $con->getData("SELECT user_id, name FROM users WHERE user_id = ".$s['update_by']);
+	$students[$key]['update_by'] = $update_by[0];
 	
 };
 

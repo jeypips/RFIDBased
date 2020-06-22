@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Asia/Manila');
+
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 require_once '../../db.php';
@@ -65,6 +67,10 @@ foreach($students as $key => $s){
 	$students[$key]['stud_year_id'] = $year[0];
 	
 };
+
+$con->table = "logs";
+
+$log = $con->insertData(array("users_id"=>$_SESSION['user_id'],"description"=>"Print Monthly Report"));
 
 header("Content-Type: application/json");
 echo json_encode($students);

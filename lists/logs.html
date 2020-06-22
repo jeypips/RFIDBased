@@ -1,0 +1,32 @@
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">Logs</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="logsTable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Names</th>
+						<th>Description</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in logs">
+					  <td>{{$index+1}}</td>
+					  <td>{{data.users_id.name}}</td>
+					  <td>{{data.description}}</td>
+					  <td>{{data.system_log}}</td>
+					</tr>
+				</tbody>
+			  </table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	<!-- /.card -->
+  </div><!-- /.container-fluid -->
+</section>
