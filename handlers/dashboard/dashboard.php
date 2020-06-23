@@ -15,12 +15,16 @@ $courses = $con->getData("SELECT count(*) no_courses FROM course");
 $sa = $con->getData("SELECT count(*) no_sa FROM users WHERE groups = 'Super Admin'");
 $admin = $con->getData("SELECT count(*) no_admin FROM users WHERE groups = 'Admin'");
 $teacher = $con->getData("SELECT count(*) no_teacher FROM users WHERE groups = 'Teacher'");
+$male = $con->getData("SELECT count(*) no_male FROM students WHERE gender = 'Male'");
+$female = $con->getData("SELECT count(*) no_female FROM students WHERE gender = 'Female'");
 
 $dashboard = array(
 	"no_students"=>(count($students))?$students[0]['no_students']:0,
 	"no_logged_book"=>(count($logged_book))?$logged_book[0]['no_logged_book']:0,
 	"no_users"=>(count($users))?$users[0]['no_users']:0,
 	"no_courses"=>(count($courses))?$courses[0]['no_courses']:0,
+	"no_male"=>(count($male))?$male[0]['no_male']:0,
+	"no_female"=>(count($female))?$female[0]['no_female']:0,
 	"accounts" => array(
 		"sa"=>(count($sa))?$sa[0]['no_sa']:0,
 		"admin"=>(count($admin))?$admin[0]['no_admin']:0,

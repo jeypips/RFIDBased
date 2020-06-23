@@ -84,13 +84,22 @@
 											<input type="text" class="form-control" name="stud_nEx" ng-model="student.stud_nEx" ng-disabled="controls.ok.btn">
 										  </div>
 										</div>
-										<div class="col-md-3 col-sm-12">
+										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Year<i class="text-danger">*</i></label>
 											<select class="form-control" name="stud_year_id" ng-model="student.stud_year_id" ng-options="year.year_description for year in years track by year.year_id" ng-change="app.checkYear(this,student.stud_year_id)" ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_year_id.$touched && formHolder.student.stud_year_id.$invalid}" required></select>
 										  </div>
 										</div>
-										<div class="col-md-3 col-sm-12">
+										<div class="col-md-6 col-sm-12">
+										  <div class="form-group">
+											<label>Gender <i class="text-danger">*</i></label>
+											<select class="form-control" name="gender" ng-model="student.gender" ng-class="{'is-invalid': formHolder.student.gender.$touched && formHolder.student.gender.$invalid}" ng-disabled="controls.ok.btn" required>
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+											</select>
+										  </div>
+										</div>
+										<div class="col-md-6 col-sm-12">
 										  <div class="form-group">
 											<label>Section<i class="text-danger">*</i></label>
 											<select class="form-control" name="stud_sect_id" ng-model="student.stud_sect_id"  ng-options="section.sect_description for section in sections track by section.sect_id"  ng-disabled="controls.ok.btn" ng-class="{'is-invalid': formHolder.student.stud_sect_id.$touched && formHolder.student.stud_sect_id.$invalid}" required></select>

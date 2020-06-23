@@ -61,6 +61,42 @@ angular.module('app-module',['my-pagination','ui.bootstrap','bootstrap-modal','b
 					})
 				});
 				
+				
+				$(function () {
+					var donutData = {
+					  labels: [
+						  'Male ('+scope.dashboard.no_male+')', 
+						  'Female ('+scope.dashboard.no_female+')'
+					  ],
+					  datasets: [
+						{
+						  data: [scope.dashboard.no_male,scope.dashboard.no_female],
+						  backgroundColor : ['#00a65a','#f56954'],
+						}
+					  ]
+					}
+					
+					var donutOptions     = {
+					  maintainAspectRatio : false,
+					  responsive : true,
+					}
+				
+					// Get context with jQuery - using jQuery's .get() method.
+					var pieChartCanvas = $('#pieChartGender').get(0).getContext('2d')
+					var pieData        = donutData;
+					var pieOptions     = {
+					  maintainAspectRatio : false,
+					  responsive : true,
+					}
+					//Create pie or douhnut chart
+					// You can switch between pie and douhnut using the method below.
+					var pieChart = new Chart(pieChartCanvas, {
+					  type: 'pie',
+					  data: pieData,
+					  options: pieOptions      
+					})
+				});
+				
 			}, function myError(response) {
 
 			});

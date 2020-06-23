@@ -9,7 +9,7 @@ require_once '../../db.php';
 $con = new pdo_db();
 
 $from = date("Y-m-d", strtotime($_POST['from'] . "+1 days"));
-$to = date("Y-m-d", strtotime($_POST['to']));
+$to = date("Y-m-d", strtotime($_POST['to']. "+1 days"));
 
 // $date1 = str_replace('-', '/', $from_);
 // $from = date('m-d-Y',strtotime($from_ . "+1 days"));

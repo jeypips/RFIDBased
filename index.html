@@ -287,27 +287,8 @@
         </div>
         <!-- Main row -->
         <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-4 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card card-danger">
-			  <div class="card-header">
-				<h3 class="card-title"><small>(Pie Chart)</small></h3>
-				<div class="card-tools">
-				  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				</div>
-			  </div>
-			  <div class="card-body">
-				<canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-			  </div>
-			  <!-- /.card-body -->
-			</div>
-			<!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-		  
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-8 connectedSortable">
+          <section class="col-lg-12 connectedSortable">
             <!-- Map card -->
 				<div class="card card-success">
 					<div class="card-header">
@@ -331,6 +312,44 @@
             <!-- /.card -->
           </section>
           <!-- right col -->
+		  
+		  <!-- Left col -->
+          <section class="col-lg-6 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card card-danger">
+			  <div class="card-header">
+				<h3 class="card-title"><i class="fa fa-users"></i> Users <small>(Pie Chart)</small></h3>
+				<div class="card-tools">
+				  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				</div>
+			  </div>
+			  <div class="card-body">
+				<canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+			  </div>
+			  <!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+          </section>
+          <!-- /.Left col -->
+		  
+		  <section class="col-lg-6 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card card-danger">
+			  <div class="card-header">
+				<h3 class="card-title"><i class="fa fa-transgender"></i> Gender <small>(Pie Chart)</small></h3>
+				<div class="card-tools">
+				  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				</div>
+			  </div>
+			  <div class="card-body">
+				<canvas id="pieChartGender" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+			  </div>
+			  <!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+          </section>
+          <!-- /.Left col -->
+		  
         </div>
       </div><!-- /.container-fluid -->
     </section>

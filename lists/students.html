@@ -64,6 +64,7 @@
 					<tr>
 						<th>RFID #</th>
 						<th>Name</th>
+						<th>Gender</th>
 						<th>Strand</th>
 						<th>Year & Section</th>
 						<th>Actions</th>
@@ -73,6 +74,7 @@
 					<tr ng-repeat="data in students">
 					  <td>{{data.stud_RFID}}</td>
 					  <td>{{data.fullname}}</td>
+					  <td>{{data.gender}}</td>
 					  <td>{{data.f_cour_id.cour_description}}</td>
 					  <td>{{data.stud_year_id.year_description}} - {{data.stud_sect_id.sect_description}}</td>
 					  <td>

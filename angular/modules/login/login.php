@@ -13,16 +13,20 @@ $con = new pdo_db();
 $sql = "SELECT user_id FROM users WHERE user_name = '$user_name' AND user_password = '$user_password'";
 $account = $con->getData($sql);
 
+$e = "";
+
 if (($con->rows) > 0) {
 	session_start();
 	$_SESSION['user_id'] = $account[0]['user_id'];
 	echo json_encode(array("login"=>true));
 } else {
 	echo json_encode(array("login"=>false));
+	$e = "error";
 }
+// var_dump($e);
 
 $con->table = "logs";
+if($e!="error") $log = $con->insertData(array("users_id"=>$account[0]['user_id'],"description"=>"Logged in"));
 
-$log = $con->insertData(array("users_id"=>$account[0]['user_id'],"description"=>"Logged in"));
 
 ?>

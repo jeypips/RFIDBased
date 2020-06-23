@@ -11,7 +11,7 @@ session_start();
 $con = new pdo_db();
 
 $from = date("Y-m-d", strtotime($_POST['from'] . "+1 days"));
-$to = date("Y-m-d", strtotime($_POST['to']));
+$to = date("Y-m-d", strtotime($_POST['to']. "+1 days"));
 
 $cour_id = isset($_POST['course']['cour_id'])?$_POST['course']['cour_id']:"";
 $year_id = isset($_POST['year']['year_id'])?$_POST['year']['year_id']:"";
@@ -20,31 +20,31 @@ $stud_id = isset($_POST['name']['stud_id'])?$_POST['name']['stud_id']:"";
 
 if($cour_id==""&&$year_id==""&&$sect_id==""&&$stud_id==!"") { // name
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND stud_id = '$stud_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND stud_id = '$stud_id'");
 
 } else if ($cour_id==!""&&$year_id==!""&&$sect_id==!""&&$stud_id=="") { // name null
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id') AND stud_sect_id = '$sect_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id') AND stud_sect_id = '$sect_id'");
 	
 } else if ($cour_id==!""&&$year_id==!""&&$sect_id==""&&$stud_id=="") { // course and year
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id')");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (f_cour_id = '$cour_id' AND stud_year_id = '$year_id')");
 
 } else if ($cour_id==!""&&$year_id==""&&$sect_id==""&&$stud_id=="") { // course 
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND f_cour_id = '$cour_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND f_cour_id = '$cour_id'");
 	
 }else if ($cour_id==""&&$year_id==!""&&$sect_id==""&&$stud_id=="") { // year/grade
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND stud_year_id = '$year_id'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND stud_year_id = '$year_id'");
 	
 } else if ($cour_id==""&&$year_id==!""&&$sect_id==!""&&$stud_id=="") { // year and section
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND (date_added BETWEEN '$from' AND '$to') AND (stud_year_id = '$year_id' AND stud_sect_id = '$sect_id')");
 	
 } else { // ALL
 	
-	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by FROM students WHERE is_deleted = '0' AND date_added BETWEEN '$from' AND '$to'");
+	$students = $con->getData("SELECT CONCAT(stud_fName,' ',stud_lName) fullname, stud_RFID, stud_id, f_cour_id, stud_year_id, stud_sect_id, date_added, added_by, update_by, gender FROM students WHERE is_deleted = '0' AND date_added BETWEEN '$from' AND '$to'");
 	
 }
 
