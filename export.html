@@ -1,0 +1,139 @@
+<?php include_once 'authentication.php';?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sinapangan National High School Monitoring System using RFID</title>
+  <link rel="icon" type="image/ico" href="dist/img/logo.png">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- File -->
+  <link rel="stylesheet" href="dist/css/file.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="plugins/css/font.css" rel="stylesheet">
+</head>
+<style>
+.hide{
+	visibility: hidden;
+}
+</style>
+<body ng-app="reports" ng-controller="reportsCtrl" account-profile>
+	<div class="row">
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <div class="form-group">
+					<label>Year</label>
+					<input type="text" class="form-control" ng-model="filter.year">
+				  </div>
+				</div>
+				<div class="col-sm-4">
+				  <!-- text input -->
+				  <label>Month</label>
+				  <div class="form-group">
+					  <select class="form-control" ng-model="filter.month" ng-options="month.description for month in months track by month.month"></select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<label>Names</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.name" ng-options="d.fullname for d in data_stud track by d.stud_id"></select>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Strands</label>
+					<div class="form-group">
+					  <select class="form-control" ng-model="filter.course" ng-options="c.cour_description for c in courses track by c.cour_id"></select>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label>Grade Level</label>
+					<div class="form-group">
+					 <select class="form-control" ng-model="filter.grade" ng-options="y.year_description for y in years track by y.year_id" ng-change="app.checkYear(this,filter.grade)"></select>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label>Sections</label>
+					<div class="input-group form-group">
+						<select class="form-control" ng-model="filter.section" ng-options="s.sect_description for s in sections track by s.sect_id"></select>
+					  <span class="input-group-append">
+						<button type="button" class="btn btn-primary" ng-click="app.list(this)">Go!</button>
+					  </span>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<a  class="btn btn-danger" href="monthly-report.html" style="margin-top: 15%;">Back</a>
+					<button class="btn btn-success" onclick="window.print()" style="margin-top: 15%;"><i class="fa fa-print"></i> Print</button>
+				</div>
+			</div><!-- /.row -->
+	<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Names</th>
+			<th ng-repeat="d in students.days">{{d}}</th>
+			<!-- <th><i class="fa fa-check"></i></th> -->
+		</tr>
+	</thead>
+	<!-- <!-- <tbody> -->
+		<tr ng-repeat="s in students.students">
+		  <td>{{s.fullname}}</td>
+		  
+		  <td ng-repeat="sl in s.logs"><i class="{{sl[0].checked}}"></i></td>
+		</tr>
+	</tbody> 
+  </table>
+</div>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+<link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">	
+<script src="angular/modules/bootbox/bootbox.min.js?ver=1.0.0.0"></script>
+<script src="angular/modules/growl/jquery.bootstrap-growl.min.js?ver=1.0.0.0"></script>
+<script src="angular/modules/blockui/jquery.blockUI.js?ver=1.0.0.0"></script>
+<link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css?ver=1.0.0.0">
+
+<!-- Js/Jspdf  -->
+<script src="angular/pdfmake/build/pdfmake.min.js"></script>
+<script src="angular/pdfmake/build/vfs_fonts.js"></script>
+<script src="angular/pdfmake/js/jspdf.min.js"></script>
+<script src="angular/pdfmake/js/jspdf.debug.js"></script>
+<script src="angular/pdfmake/js/jspdf.plugin.autotable.js"></script>	
+
+<!-- dependencies -->
+<script src="angular/angular.min.js?ver=1.0.0.0"></script>
+<script src="angular/angular-route.min.js?ver=1.0.0.0"></script>
+<script src="angular/angular-sanitize.min.js?ver=1.0.0.0"></script>
+<script src="angular/ui-bootstrap-tpls-3.0.6.min.js?ver=1.0.0.0"></script>
+
+<script src="angular/modules/my-pagination/my-pagination.js?ver=1.0.0.0"></script>
+<script src="angular/modules/account/account.js?ver=1.0.0.0"></script>
+<script src="angular/modules/bootbox/bootstrap-modal.js?ver=1.0.0.0"></script>
+<script src="angular/modules/growl/growl.js?ver=1.0.0.0"></script>
+<script src="angular/modules/blockui/blockui.js?ver=1.0.0.0"></script>
+<script src="angular/modules/validation/validate.js?ver=1.0.0.0"></script>
+<script src="angular/modules/post/window-open-post.js?ver=1.0.0.0"></script>
+<script src="modules/months.js"></script>
+<script src="controllers/months.js"></script>
+
+</body>
+</html>
